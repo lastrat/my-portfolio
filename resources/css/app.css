@@ -975,6 +975,49 @@ section {
     letter-spacing: 0.05em;
 }
 
+/* Skills Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.skill-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: var(--transition-fast);
+}
+
+.skill-item:hover {
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+}
+
+.skill-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(2, 194, 2, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-green);
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.skill-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
 /* Experiments */
 .experiments-grid {
     display: grid;

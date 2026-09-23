@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $translations['app_name'] ?? 'Gildas Rochinel' }} — {{ $translations['tagline'] ?? 'Web Developer × Creative' }}</title>
-    <meta name="description" content="{{ $translations['hero_subtitle'] ?? 'Full Stack Developer specialized in Laravel, React, and creative web experiences.' }}">
+    <title>{{ $translations['app_name'] ?? 'Gildas Rochinel' }} — {{ $translations['tagline'] ?? 'Fullstack Web Developer' }}</title>
+    <meta name="description" content="{{ $translations['hero_subtitle'] ?? 'Fullstack Developer specialized in Laravel, React, CodeIgniter, and Django.' }}">
     
     <meta name="success-message" content="{{ $translations['email_sent'] ?? 'Message sent successfully!' }}">
     <meta name="error-message" content="{{ $translations['email_error'] ?? 'Error sending message.' }}">
@@ -108,11 +108,11 @@
 
                     <div class="stats reveal">
                         <div class="stat-item">
-                            <div class="stat-value">5+</div>
+                            <div class="stat-value">3+</div>
                             <div class="stat-label">{{ $translations['years_experience'] ?? 'Years Experience' }}</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">20+</div>
+                            <div class="stat-value">10+</div>
                             <div class="stat-label">{{ $translations['projects_completed'] ?? 'Projects' }}</div>
                         </div>
                         <div class="stat-item">
@@ -120,8 +120,8 @@
                             <div class="stat-label">{{ $translations['technologies'] ?? 'Technologies' }}</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">∞</div>
-                            <div class="stat-label">{{ $translations['curiosity'] ?? 'Curiosity' }}</div>
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">{{ $translations['curiosity'] ?? 'Passion' }}</div>
                         </div>
                     </div>
                 </div>
@@ -141,20 +141,28 @@
         <div class="marquee-content">
             <span class="marquee-item">Laravel</span>
             <span class="marquee-item">React</span>
-            <span class="marquee-item">Next.js</span>
-            <span class="marquee-item">Three.js</span>
-            <span class="marquee-item">GSAP</span>
+            <span class="marquee-item">CodeIgniter</span>
+            <span class="marquee-item">Django</span>
+            <span class="marquee-item">PHP</span>
+            <span class="marquee-item">JavaScript</span>
             <span class="marquee-item">Python</span>
             <span class="marquee-item">MySQL</span>
             <span class="marquee-item">Docker</span>
+            <span class="marquee-item">Bootstrap</span>
+            <span class="marquee-item">Tailwind</span>
+            <span class="marquee-item">Git</span>
             <span class="marquee-item">Laravel</span>
             <span class="marquee-item">React</span>
-            <span class="marquee-item">Next.js</span>
-            <span class="marquee-item">Three.js</span>
-            <span class="marquee-item">GSAP</span>
+            <span class="marquee-item">CodeIgniter</span>
+            <span class="marquee-item">Django</span>
+            <span class="marquee-item">PHP</span>
+            <span class="marquee-item">JavaScript</span>
             <span class="marquee-item">Python</span>
             <span class="marquee-item">MySQL</span>
             <span class="marquee-item">Docker</span>
+            <span class="marquee-item">Bootstrap</span>
+            <span class="marquee-item">Tailwind</span>
+            <span class="marquee-item">Git</span>
         </div>
     </div>
 
@@ -221,12 +229,32 @@
         </div>
     </section>
 
+    <!-- Skills -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">{{ $translations['section_03'] ?? '03' }}</span>
+                <h2 class="section-title">{{ $translations['skills'] ?? 'Skills' }}</h2>
+                <p class="section-description">{{ $translations['skills_desc'] ?? 'My technical expertise.' }}</p>
+            </div>
+
+            <div class="skills-grid">
+                @foreach($skills as $skill)
+                <div class="skill-item reveal">
+                    <div class="skill-icon">◆</div>
+                    <p class="skill-text">{{ $skill }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
     <!-- Experience -->
     <section id="experience">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-number">{{ $translations['section_03'] ?? '03' }}</span>
-                <h2 class="section-title">{{ $translations['experience'] ?? 'Experience' }}</h2>
+                <span class="section-number">{{ $translations['section_04'] ?? '04' }}</span>
+                <h2 class="section-title">{{ $translations['experience'] ?? 'Professional Experience' }}</h2>
                 <p class="section-description">{{ $translations['experience_desc'] ?? 'My professional journey.' }}</p>
             </div>
 
@@ -243,11 +271,35 @@
         </div>
     </section>
 
+    <!-- Education -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">{{ $translations['section_05'] ?? '05' }}</span>
+                <h2 class="section-title">{{ $translations['education'] ?? 'Education' }}</h2>
+                <p class="section-description">{{ $translations['education_desc'] ?? 'My academic background.' }}</p>
+            </div>
+
+            <div class="timeline">
+                @foreach($education as $item)
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">{{ $item['year'] }}</div>
+                    <h3 class="timeline-title">{{ $item['title'] }}</h3>
+                    <div class="timeline-company">{{ $item['company'] }}</div>
+                    @if($item['description'])
+                    <p class="timeline-description">{{ $item['description'] }}</p>
+                    @endif
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
     <!-- About -->
     <section id="about">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-number">{{ $translations['section_04'] ?? '04' }}</span>
+                <span class="section-number">{{ $translations['section_06'] ?? '06' }}</span>
                 <h2 class="section-title">{{ $translations['about'] ?? 'About Me' }}</h2>
             </div>
 
@@ -257,15 +309,15 @@
                 </div>
                 
                 <div class="about-text reveal reveal-delay-1">
-                    <p>{{ $translations['about_desc'] ?? 'I\'m a passionate developer based in France, focused on creating premium digital experiences.' }}</p>
+                    <p>{{ $translations['about_desc'] ?? 'Passionate fullstack web developer with expertise in Laravel, React, CodeIgniter, and Django.' }}</p>
                     
                     <div class="about-stats">
                         <div class="about-stat">
-                            <div class="about-stat-value">5+</div>
+                            <div class="about-stat-value">3+</div>
                             <div class="about-stat-label">{{ $translations['years_experience'] ?? 'Years Experience' }}</div>
                         </div>
                         <div class="about-stat">
-                            <div class="about-stat-value">20+</div>
+                            <div class="about-stat-value">10+</div>
                             <div class="about-stat-label">{{ $translations['projects_completed'] ?? 'Projects' }}</div>
                         </div>
                         <div class="about-stat">
@@ -273,9 +325,17 @@
                             <div class="about-stat-label">{{ $translations['technologies'] ?? 'Technologies' }}</div>
                         </div>
                         <div class="about-stat">
-                            <div class="about-stat-value">100%</div>
-                            <div class="about-stat-label">{{ $translations['curiosity'] ?? 'Curiosity' }}</div>
+                            <div class="about-stat-value">2</div>
+                            <div class="about-stat-label">{{ $translations['curiosity'] ?? 'Languages' }}</div>
                         </div>
+                    </div>
+
+                    <div class="languages-list" style="margin-top: 24px;">
+                        @foreach($languages as $lang)
+                        <div class="language-item" style="padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; font-family: var(--font-code); font-size: 13px; color: var(--text-secondary);">
+                            {{ $lang }}
+                        </div>
+                        @endforeach
                     </div>
 
                     <a href="{{ asset('assets/CV.pdf') }}" target="_blank" class="btn btn-primary magnetic" style="margin-top: 32px;">
@@ -290,26 +350,37 @@
     <section id="experiments">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-number">{{ $translations['section_05'] ?? '05' }}</span>
+                <span class="section-number">{{ $translations['section_07'] ?? '07' }}</span>
                 <h2 class="section-title">{{ $translations['experiments'] ?? 'Experiments' }}</h2>
                 <p class="section-description">{{ $translations['experiments_desc'] ?? 'Exploring the boundaries of web technologies.' }}</p>
             </div>
 
             <div class="experiments-grid">
-                @foreach($experiments as $experiment)
                 <div class="experiment-card reveal">
-                    <div class="experiment-icon">
-                        @if($experiment['icon'] === 'webgl') ◈
-                        @elseif($experiment['icon'] === '3d') ◉
-                        @elseif($experiment['icon'] === 'ai') ◎
-                        @elseif($experiment['icon'] === 'motion') ⟐
-                        @else ⬡
-                        @endif
-                    </div>
-                    <h3 class="experiment-title">{{ $experiment['title'] }}</h3>
-                    <p class="experiment-description">{{ $experiment['description'] }}</p>
+                    <div class="experiment-icon">◈</div>
+                    <h3 class="experiment-title">{{ $translations['experiment_webgl'] ?? 'WebGL Experiments' }}</h3>
+                    <p class="experiment-description">{{ $translations['experiment_webgl_desc'] ?? 'Exploring WebGL possibilities for immersive 3D experiences.' }}</p>
                 </div>
-                @endforeach
+                <div class="experiment-card reveal">
+                    <div class="experiment-icon">◉</div>
+                    <h3 class="experiment-title">{{ $translations['experiment_3d'] ?? '3D Interactive' }}</h3>
+                    <p class="experiment-description">{{ $translations['experiment_3d_desc'] ?? 'Interactive 3D objects reacting to mouse movements.' }}</p>
+                </div>
+                <div class="experiment-card reveal">
+                    <div class="experiment-icon">◎</div>
+                    <h3 class="experiment-title">{{ $translations['experiment_ai'] ?? 'AI Integration' }}</h3>
+                    <p class="experiment-description">{{ $translations['experiment_ai_desc'] ?? 'Integrating artificial intelligence into web interfaces.' }}</p>
+                </div>
+                <div class="experiment-card reveal">
+                    <div class="experiment-icon">⟐</div>
+                    <h3 class="experiment-title">{{ $translations['experiment_motion'] ?? 'Motion Design' }}</h3>
+                    <p class="experiment-description">{{ $translations['experiment_motion_desc'] ?? 'Animations and micro-interactions for fluid experiences.' }}</p>
+                </div>
+                <div class="experiment-card reveal">
+                    <div class="experiment-icon">⬡</div>
+                    <h3 class="experiment-title">{{ $translations['experiment_interactive'] ?? 'Interactive UI' }}</h3>
+                    <p class="experiment-description">{{ $translations['experiment_interactive_desc'] ?? 'Innovative user interfaces and unique experiences.' }}</p>
+                </div>
             </div>
         </div>
     </section>
@@ -318,7 +389,7 @@
     <section id="contact">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-number">{{ $translations['section_06'] ?? '06' }}</span>
+                <span class="section-number">{{ $translations['section_08'] ?? '08' }}</span>
                 <h2 class="section-title">{{ $translations['contact'] ?? 'Contact' }}</h2>
                 <p class="section-description">{{ $translations['contact_desc'] ?? 'Let\'s build something great together.' }}</p>
             </div>
@@ -352,7 +423,7 @@
                         <div class="contact-info-icon">📍</div>
                         <div class="contact-info-text">
                             <strong>Location</strong>
-                            France
+                            Yaoundé, Cameroun
                         </div>
                     </div>
                     <div class="contact-info-item">
@@ -360,6 +431,13 @@
                         <div class="contact-info-text">
                             <strong>Status</strong>
                             {{ $translations['available_for_work'] ?? 'Available for work' }}
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">🌐</div>
+                        <div class="contact-info-text">
+                            <strong>Languages</strong>
+                            Français (Courant) • English (Intermediate)
                         </div>
                     </div>
                 </div>
