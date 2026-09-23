@@ -1045,7 +1045,7 @@ section {
 .project-3d-card {
     flex: 0 0 auto;
     width: clamp(320px, 45vw, 600px);
-    min-height: 520px;
+    min-height: 420px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
@@ -1144,10 +1144,10 @@ section {
 
 .project-3d-content {
     position: relative;
-    padding: 32px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 14px;
     flex: 1;
 }
 
