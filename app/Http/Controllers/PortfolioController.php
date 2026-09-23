@@ -37,7 +37,7 @@ class PortfolioController extends Controller
                 'year' => '2024',
                 'client' => 'Ghostroar Digitale',
                 'tech' => ['Laravel', 'jQuery', 'Bootstrap', 'MySQL'],
-                'image' => 'assets/images/projects/tresor.jpg',
+                'image' => 'assets/images/projects/tresor.png',
             ],
             [
                 'id' => 3,
@@ -63,7 +63,7 @@ class PortfolioController extends Controller
                 'year' => '2023',
                 'client' => 'Ghostroar Digitale',
                 'tech' => ['Laravel', 'Bootstrap', 'MySQL', 'PDF'],
-                'image' => 'assets/images/projects/ifptii.jpg',
+                'image' => 'assets/images/projects/ifptii2.png',
             ],
             [
                 'id' => 5,
@@ -76,7 +76,7 @@ class PortfolioController extends Controller
                 'year' => '2023',
                 'client' => 'Ghostroar Digitale',
                 'tech' => ['CodeIgniter', 'PHP', 'MySQL', 'jQuery'],
-                'image' => 'assets/images/projects/zukulu.jpg',
+                'image' => 'assets/images/projects/zukulu.png',
             ],
             [
                 'id' => 6,
@@ -112,12 +112,18 @@ class PortfolioController extends Controller
                 'description' => $locale === 'fr' 
                     ? 'Formation approfondie en génie logiciel, bases de données, algorithmique et développement d\'applications. Équivalence canadienne : Bachelor\'s Degree.' 
                     : 'In-depth training in software engineering, databases, algorithms, and application development. Canadian equivalence: Bachelor\'s Degree.',
+                'location' => $locale === 'fr' ? 'Yaoundé, Cameroun' : 'Yaoundé, Cameroon',
+                'lat' => 3.848,
+                'lng' => 11.502,
             ],
             [
                 'year' => '2021',
                 'title' => $locale === 'fr' ? 'Baccalauréat' : 'High School Diploma',
                 'company' => $locale === 'fr' ? 'Lycée Bilingue de Yaoundé' : 'Bilingual High School of Yaoundé',
-                'description' => '',
+                'description' => $locale === 'fr' ? 'Baccalauréat série C, spécialité mathématiques et physique.' : 'High School Diploma, Science track.',
+                'location' => $locale === 'fr' ? 'Yaoundé, Cameroun' : 'Yaoundé, Cameroon',
+                'lat' => 3.852,
+                'lng' => 11.515,
             ],
         ];
 

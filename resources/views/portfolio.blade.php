@@ -24,7 +24,7 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-content">
-            <div class="preloader-logo">GR</div>
+            <div class="preloader-logo">GS</div>
             <div class="preloader-bar"></div>
         </div>
     </div>
@@ -38,7 +38,7 @@
 
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="#hero" class="nav-logo">GR</a>
+        <a href="#hero" class="nav-logo">GS</a>
         
         <div class="nav-controls">
             <button class="nav-btn" data-theme-btn="light" title="{{ $translations['light_mode'] ?? 'Light Mode' }}">
@@ -315,6 +315,10 @@
 
     <!-- Education -->
     <section id="education">
+        <div class="section-bg">
+            <div class="bg-grid"></div>
+            <div class="bg-glow bg-glow--1"></div>
+        </div>
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-number">{{ $translations['section_05'] ?? '05' }}</span>
@@ -322,17 +326,53 @@
                 <p class="section-description">{{ $translations['education_desc'] ?? 'My academic background.' }}</p>
             </div>
 
-            <div class="timeline">
-                @foreach($education as $item)
-                <div class="timeline-item reveal">
-                    <div class="timeline-year">{{ $item['year'] }}</div>
-                    <h3 class="timeline-title">{{ $item['title'] }}</h3>
-                    <div class="timeline-company">{{ $item['company'] }}</div>
-                    @if($item['description'])
-                    <p class="timeline-description">{{ $item['description'] }}</p>
-                    @endif
+            <div class="education-layout">
+                <div class="education-timeline-col">
+                    <div class="timeline">
+                        @foreach($education as $item)
+                        <div class="timeline-item reveal">
+                            <div class="timeline-year">{{ $item['year'] }}</div>
+                            <h3 class="timeline-title">{{ $item['title'] }}</h3>
+                            <div class="timeline-company">{{ $item['company'] }}</div>
+                            @if($item['description'])
+                            <p class="timeline-description">{{ $item['description'] }}</p>
+                            @endif
+                            @if(isset($item['location']))
+                            <div class="timeline-location">
+                                <span class="location-dot"></span>
+                                {{ $item['location'] }}
+                            </div>
+                            @endif
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
-                @endforeach
+
+                <div class="education-globe-col reveal reveal-delay-1">
+                    <div class="globe-container">
+                        <div class="globe">
+                            <div class="globe-sphere"></div>
+                            <div class="globe-dots">
+                                @foreach($education as $item)
+                                @if(isset($item['lat'], $item['lng']))
+                                <div class="globe-dot" style="--lat: {{ $item['lat'] }}; --lng: {{ $item['lng'] }};" data-location="{{ $item['location'] ?? '' }}" data-title="{{ $item['title'] ?? '' }}">
+                                    <span class="globe-dot-pulse"></span>
+                                    <span class="globe-dot-label">{{ $item['location'] ?? '' }}</span>
+                                </div>
+                                @endif
+                                @endforeach
+                            </div>
+                            <div class="globe-lines">
+                                @for($i = 0; $i < count($education) - 1; $i++)
+                                @if(isset($education[$i]['lat'], $education[$i]['lng'], $education[$i + 1]['lat'], $education[$i + 1]['lng']))
+                                <div class="globe-line" style="--lat1: {{ $education[$i]['lat'] }}; --lng1: {{ $education[$i]['lng'] }}; --lat2: {{ $education[$i + 1]['lat'] }}; --lng2: {{ $education[$i + 1]['lng'] }};"></div>
+                                @endif
+                                @endfor
+                            </div>
+                        </div>
+                        <div class="globe-glow"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
