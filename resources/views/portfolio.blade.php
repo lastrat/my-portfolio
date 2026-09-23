@@ -355,28 +355,38 @@
                             
                             <svg class="globe-map" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                                 <defs>
-                                    <pattern id="continentDots" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-                                        <circle cx="2" cy="2" r="0.6" fill="rgba(2, 194, 2, 0.35)"/>
+                                    <pattern id="continentDots" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+                                        <circle cx="1.5" cy="1.5" r="0.5" fill="rgba(2, 194, 2, 0.5)"/>
                                     </pattern>
                                 </defs>
                                 
                                 <g transform="translate(100, 100) scale(0.75)">
-                                    <ellipse cx="0" cy="0" rx="90" ry="90" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+                                    <ellipse cx="0" cy="0" rx="92" ry="92" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
                                     
                                     <g transform="rotate(-23.5)">
-                                        <path d="M -35,-30 Q -30,-35 -20,-32 Q -10,-28 0,-30 Q 10,-32 20,-28 Q 30,-25 35,-20 Q 38,-10 35,0 Q 32,10 28,18 Q 22,25 15,28 Q 5,30 -5,28 Q -15,25 -22,20 Q -30,12 -33,2 Q -35,-10 -35,-20 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        <path d="M -32,-28 Q -26,-34 -16,-30 Q -6,-26 4,-28 Q 14,-30 24,-26 Q 34,-22 38,-12 Q 40,-2 36,8 Q 32,18 24,24 Q 14,28 4,26 Q -6,24 -16,20 Q -26,14 -32,4 Q -36,-6 -34,-16 Q -32,-22 -32,-28 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
                                         
-                                        <path d="M -55,10 Q -50,5 -45,8 Q -40,12 -38,18 Q -35,25 -38,32 Q -42,38 -48,40 Q -55,42 -60,38 Q -65,32 -63,25 Q -60,18 -55,10 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        <path d="M -52,8 Q -46,2 -40,6 Q -34,10 -32,18 Q -30,26 -34,34 Q -38,42 -46,44 Q -54,46 -60,40 Q -66,34 -64,26 Q -60,18 -52,8 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
                                         
-                                        <path d="M 20,15 Q 28,12 35,15 Q 42,18 45,25 Q 48,32 45,38 Q 42,45 35,48 Q 28,50 22,48 Q 15,45 12,38 Q 8,30 12,22 Q 15,18 20,15 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        <path d="M 18,14 Q 26,10 34,14 Q 42,18 46,26 Q 50,34 46,42 Q 42,50 34,52 Q 26,54 18,50 Q 10,46 6,38 Q 2,30 6,22 Q 10,16 18,14 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
                                         
-                                        <path d="M -10,-45 Q -5,-50 5,-48 Q 15,-45 20,-40 Q 25,-35 22,-28 Q 18,-22 12,-20 Q 5,-18 -2,-22 Q -8,-26 -12,-32 Q -15,-38 -10,-45 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        <path d="M -8,-42 Q -2,-48 8,-46 Q 18,-42 22,-34 Q 26,-26 22,-18 Q 18,-10 10,-8 Q 2,-6 -6,-10 Q -14,-14 -18,-22 Q -22,-30 -16,-38 Q -12,-42 -8,-42 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
                                         
-                                        <path d="M -50,-45 Q -45,-50 -38,-48 Q -30,-45 -25,-40 Q -20,-35 -22,-28 Q -25,-22 -32,-20 Q -40,-18 -45,-22 Q -50,-26 -52,-32 Q -55,-40 -50,-45 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        <path d="M -48,-42 Q -42,-48 -34,-46 Q -26,-42 -20,-36 Q -14,-30 -16,-22 Q -18,-14 -26,-10 Q -34,-6 -40,-12 Q -46,-18 -48,-26 Q -50,-34 -48,-42 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
                                         
-                                        <path d="M 30,-25 Q 38,-22 45,-18 Q 52,-12 55,-5 Q 58,2 55,8 Q 52,15 48,18 Q 42,22 35,20 Q 28,18 25,12 Q 22,5 25,-2 Q 28,-10 30,-18 Q 32,-22 30,-25 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        <path d="M 28,-22 Q 36,-18 44,-14 Q 52,-8 54,0 Q 56,8 52,14 Q 48,20 42,22 Q 36,24 28,20 Q 20,16 16,10 Q 12,4 14,-4 Q 18,-12 22,-18 Q 26,-22 28,-22 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
                                         
-                                        <path d="M -60,35 Q -55,30 -50,32 Q -45,35 -42,40 Q -40,45 -42,50 Q -45,55 -50,58 Q -58,62 -65,60 Q -70,58 -72,52 Q -72,45 -68,40 Q -65,36 -60,35 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        <path d="M -58,32 Q -52,28 -46,30 Q -40,32 -36,38 Q -32,44 -34,50 Q -36,56 -44,60 Q -52,64 -60,60 Q -68,56 -70,48 Q -70,40 -66,34 Q -62,30 -58,32 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
+                                        
+                                        <path d="M 52,-18 Q 58,-14 62,-8 Q 66,0 66,8 Q 64,16 58,20 Q 52,24 46,22 Q 40,18 38,12 Q 36,4 38,-4 Q 42,-12 46,-16 Q 50,-20 52,-18 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
+                                        
+                                        <path d="M -76,10 Q -72,6 -68,8 Q -64,10 -62,16 Q -60,22 -62,28 Q -64,34 -68,36 Q -74,38 -78,34 Q -82,30 -82,24 Q -80,16 -76,10 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
+                                        
+                                        <path d="M -20,-50 Q -14,-54 -6,-52 Q 2,-50 6,-44 Q 10,-38 8,-30 Q 4,-24 -2,-24 Q -8,-24 -12,-30 Q -16,-36 -16,-42 Q -18,-48 -20,-50 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
+                                        
+                                        <path d="M -62,-48 Q -56,-52 -50,-50 Q -44,-48 -40,-42 Q -36,-36 -38,-30 Q -42,-24 -48,-24 Q -54,-24 -58,-28 Q -62,-34 -62,-40 Q -64,-46 -62,-48 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
+                                        
+                                        <path d="M 36,32 Q 42,28 48,30 Q 54,34 56,40 Q 58,46 54,52 Q 50,58 44,60 Q 38,62 32,58 Q 26,54 24,48 Q 22,42 26,36 Q 30,32 36,32 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.35)" stroke-width="0.6"/>
                                     </g>
                                 </g>
                             </svg>
