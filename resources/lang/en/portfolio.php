@@ -3,7 +3,7 @@
 return [
     "app_name" => "Gildas Rochinel",
     "tagline" => "Fullstack Web Developer",
-    "hero_title" => "BUILDING HIGH-PERFORMANCE WEB APPLICATIONS.",
+    "hero_title" => "BUILDING THE WEB, DIFFERENTLY.",
     "hero_subtitle" => "Fullstack Developer specialized in Laravel, React, CodeIgniter, and Django. Passionate about building performant and scalable web applications.",
     "view_work" => "VIEW PROJECTS",
     "contact_me" => "CONTACT ME",

@@ -168,6 +168,11 @@
 
     <!-- Selected Work -->
     <section id="work">
+        <div class="section-bg">
+            <div class="bg-grid"></div>
+            <div class="bg-glow bg-glow--1"></div>
+            <div class="bg-glow bg-glow--2"></div>
+        </div>
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-number">{{ $translations['section_01'] ?? '01' }}</span>
@@ -175,41 +180,74 @@
                 <p class="section-description">{{ $translations['selected_work_desc'] ?? 'A selection of projects that define my approach.' }}</p>
             </div>
 
-            <div class="projects-grid">
-                @foreach($projects as $project)
-                <a href="#" class="project-card reveal">
-                    <div class="project-image">
-                        <img src="{{ asset($project['image'] ?? 'https://via.placeholder.com/800x500') }}" 
-                             alt="{{ $project['title'] }}" 
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="project-image-fallback" style="display: none;">
-                            {{ substr($project['title'], 0, 2) }}
+            <div class="projects-3d-wrapper">
+                <div class="projects-3d-carousel" id="projectsCarousel">
+                    @foreach($projects as $project)
+                    <div class="project-3d-card reveal" data-index="{{ $loop->index }}">
+                        <div class="project-3d-card-inner">
+                            <div class="project-3d-card-bg"></div>
+                            <div class="project-3d-card-glow"></div>
+                            
+                            <div class="project-3d-image">
+                                <img src="{{ asset($project['image'] ?? 'https://via.placeholder.com/800x500') }}" 
+                                     alt="{{ $project['title'] }}" 
+                                     loading="lazy"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-image-fallback" style="display: none;">
+                                    {{ substr($project['title'], 0, 2) }}
+                                </div>
+                                <div class="project-3d-overlay"></div>
+                            </div>
+
+                            <div class="project-3d-content">
+                                <div class="project-3d-header">
+                                    <span class="project-3d-year">{{ $project['year'] }}</span>
+                                    <span class="project-3d-role">{{ $project['role'] }}</span>
+                                </div>
+                                
+                                <h3 class="project-3d-title">{{ $project['title'] }}</h3>
+                                <p class="project-3d-description">{{ $project['description'] }}</p>
+                                
+                                <div class="project-3d-footer">
+                                    <div class="project-3d-tech">
+                                        @foreach($project['tech'] as $tech)
+                                        <span class="project-3d-tech-tag">{{ $tech }}</span>
+                                        @endforeach
+                                    </div>
+                                    <a href="#" class="project-3d-link">
+                                        <span class="project-3d-link-text">View Project</span>
+                                        <span class="project-3d-link-arrow">→</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="project-image-overlay"></div>
                     </div>
-                    <div class="project-content">
-                        <div class="project-meta">
-                            <span>{{ $project['year'] }}</span>
-                            <span>{{ $project['client'] }}</span>
-                            <span>{{ $project['role'] }}</span>
-                        </div>
-                        <h3 class="project-title">{{ $project['title'] }}</h3>
-                        <p class="project-description">{{ $project['description'] }}</p>
-                        <div class="project-tech">
-                            @foreach($project['tech'] as $tech)
-                            <span>{{ $tech }}</span>
-                            @endforeach
-                        </div>
+                    @endforeach
+                </div>
+
+                <div class="projects-3d-controls">
+                    <button class="project-3d-nav project-3d-prev" id="projectPrev" aria-label="Previous">
+                        <span>←</span>
+                    </button>
+                    <div class="project-3d-counter">
+                        <span class="project-3d-current">01</span>
+                        <span class="project-3d-separator">/</span>
+                        <span class="project-3d-total">{{ str_pad($projects->count(), 2, '0', STR_PAD_LEFT) }}</span>
                     </div>
-                </a>
-                @endforeach
+                    <button class="project-3d-nav project-3d-next" id="projectNext" aria-label="Next">
+                        <span>→</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Tech Stack -->
     <section id="tech">
+        <div class="section-bg">
+            <div class="bg-grid"></div>
+            <div class="bg-glow bg-glow--1"></div>
+        </div>
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-number">{{ $translations['section_02'] ?? '02' }}</span>
@@ -231,6 +269,10 @@
 
     <!-- Skills -->
     <section id="skills">
+        <div class="section-bg">
+            <div class="bg-grid"></div>
+            <div class="bg-glow bg-glow--2"></div>
+        </div>
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-number">{{ $translations['section_03'] ?? '03' }}</span>
@@ -387,6 +429,11 @@
 
     <!-- Contact -->
     <section id="contact">
+        <div class="section-bg">
+            <div class="bg-grid"></div>
+            <div class="bg-glow bg-glow--1"></div>
+            <div class="bg-glow bg-glow--2"></div>
+        </div>
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-number">{{ $translations['section_08'] ?? '08' }}</span>

@@ -975,7 +975,338 @@ section {
     letter-spacing: 0.05em;
 }
 
-/* Skills Section */
+/* Section Backgrounds */
+.section-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+}
+
+.bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+}
+
+.bg-glow--1 {
+    width: 600px;
+    height: 600px;
+    background: var(--accent-green);
+    top: -200px;
+    right: -100px;
+    animation: floatGlow 20s ease-in-out infinite;
+}
+
+.bg-glow--2 {
+    width: 500px;
+    height: 500px;
+    background: var(--accent-cyan);
+    bottom: -200px;
+    left: -100px;
+    animation: floatGlow 25s ease-in-out infinite reverse;
+}
+
+@keyframes floatGlow {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(100px, -50px); }
+    66% { transform: translate(-50px, 100px); }
+}
+
+/* Projects 3D Carousel */
+.projects-3d-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 40px 0;
+    perspective: 2000px;
+}
+
+.projects-3d-carousel {
+    display: flex;
+    gap: 40px;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.project-3d-card {
+    flex: 0 0 auto;
+    width: clamp(320px, 45vw, 600px);
+    min-height: 520px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+    transform: rotateY(15deg) rotateX(5deg);
+    opacity: 0.6;
+}
+
+.project-3d-card.active {
+    transform: rotateY(0) rotateX(0);
+    opacity: 1;
+}
+
+.project-3d-card.prev {
+    transform: rotateY(25deg) rotateX(5deg) translateX(-120%) translateZ(-100px);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.project-3d-card.next {
+    transform: rotateY(-25deg) rotateX(5deg) translateX(120%) translateZ(-100px);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.project-3d-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.project-3d-card.active .project-3d-card-inner {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(2, 194, 2, 0.2);
+}
+
+.project-3d-card-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(2, 194, 2, 0.05), rgba(0, 198, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.project-3d-card:hover .project-3d-card-bg {
+    opacity: 1;
+}
+
+.project-3d-card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--accent-green) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: none;
+}
+
+.project-3d-card.active .project-3d-card-glow {
+    opacity: 0.08;
+    transform: scale(1);
+}
+
+.project-3d-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.project-3d-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-3d-card:hover .project-3d-image img {
+    transform: scale(1.08);
+}
+
+.project-3d-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.2) 50%, transparent 100%);
+}
+
+.project-3d-content {
+    position: relative;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+.project-3d-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.project-3d-year {
+    font-family: var(--font-code);
+    font-size: 12px;
+    color: var(--accent-green);
+    letter-spacing: 0.1em;
+    padding: 6px 14px;
+    background: rgba(2, 194, 2, 0.1);
+    border-radius: 100px;
+    border: 1px solid rgba(2, 194, 2, 0.2);
+}
+
+.project-3d-role {
+    font-family: var(--font-code);
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.project-3d-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.project-3d-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    flex: 1;
+}
+
+.project-3d-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.project-3d-tech {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.project-3d-tech-tag {
+    font-family: var(--font-code);
+    font-size: 10px;
+    padding: 5px 12px;
+    background: rgba(2, 194, 2, 0.08);
+    color: var(--accent-green);
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(2, 194, 2, 0.15);
+}
+
+.project-3d-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: var(--font-code);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.project-3d-link:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+    transform: translateX(4px);
+}
+
+.project-3d-link-arrow {
+    transition: transform 0.3s ease;
+}
+
+.project-3d-link:hover .project-3d-link-arrow {
+    transform: translateX(4px);
+}
+
+.projects-3d-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.project-3d-nav {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.project-3d-nav:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(2, 194, 2, 0.2);
+}
+
+.project-3d-counter {
+    font-family: var(--font-code);
+    font-size: 14px;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+    min-width: 80px;
+    text-align: center;
+}
+
+.project-3d-current {
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+.project-3d-separator {
+    margin: 0 8px;
+    opacity: 0.4;
+}
+
+.project-3d-total {
+    opacity: 0.6;
+}
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

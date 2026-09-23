@@ -417,4 +417,113 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     counters.forEach(counter => counterObserver.observe(counter));
+
+    // ===== 3D PROJECTS CAROUSEL =====
+    const carousel = document.getElementById('projectsCarousel');
+    if (carousel) {
+        const cards = carousel.querySelectorAll('.project-3d-card');
+        const prevBtn = document.getElementById('projectPrev');
+        const nextBtn = document.getElementById('projectNext');
+        const currentCounter = document.querySelector('.project-3d-current');
+        let currentIndex = 0;
+        const totalCards = cards.length;
+
+        function updateCarousel() {
+            cards.forEach((card, index) => {
+                card.classList.remove('active', 'prev', 'next');
+                
+                if (index === currentIndex) {
+                    card.classList.add('active');
+                } else if (index === currentIndex - 1) {
+                    card.classList.add('prev');
+                } else if (index === currentIndex + 1) {
+                    card.classList.add('next');
+                }
+            });
+
+            if (currentCounter) {
+                currentCounter.textContent = String(currentIndex + 1).padStart(2, '0');
+            }
+
+            const cardWidth = cards[0].offsetWidth + 40;
+            const offset = -currentIndex * cardWidth + (carousel.parentElement.offsetWidth - cards[0].offsetWidth) / 2;
+            carousel.style.transform = `translateX(${offset}px)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalCards;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+            updateCarousel();
+        }
+
+        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+        carousel.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                e.preventDefault();
+                if (e.deltaX > 30) nextSlide();
+                else if (e.deltaX < -30) prevSlide();
+            } else if (e.deltaY > 30) {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.deltaY < -30) {
+                e.preventDefault();
+                prevSlide();
+            }
+        }, { passive: false });
+
+        let touchStartX = 0;
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        carousel.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            else if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        cards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                if (index !== currentIndex) {
+                    currentIndex = index;
+                    updateCarousel();
+                }
+            });
+        });
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / centerY * -8;
+                const rotateY = (x - centerX) / centerX * 8;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        window.addEventListener('resize', updateCarousel);
+        updateCarousel();
+    }
 });
