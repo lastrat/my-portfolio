@@ -352,6 +352,35 @@
                     <div class="globe-container">
                         <div class="globe">
                             <div class="globe-sphere"></div>
+                            
+                            <svg class="globe-map" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <pattern id="continentDots" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+                                        <circle cx="2" cy="2" r="0.6" fill="rgba(2, 194, 2, 0.35)"/>
+                                    </pattern>
+                                </defs>
+                                
+                                <g transform="translate(100, 100) scale(0.75)">
+                                    <ellipse cx="0" cy="0" rx="90" ry="90" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+                                    
+                                    <g transform="rotate(-23.5)">
+                                        <path d="M -35,-30 Q -30,-35 -20,-32 Q -10,-28 0,-30 Q 10,-32 20,-28 Q 30,-25 35,-20 Q 38,-10 35,0 Q 32,10 28,18 Q 22,25 15,28 Q 5,30 -5,28 Q -15,25 -22,20 Q -30,12 -33,2 Q -35,-10 -35,-20 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        
+                                        <path d="M -55,10 Q -50,5 -45,8 Q -40,12 -38,18 Q -35,25 -38,32 Q -42,38 -48,40 Q -55,42 -60,38 Q -65,32 -63,25 Q -60,18 -55,10 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        
+                                        <path d="M 20,15 Q 28,12 35,15 Q 42,18 45,25 Q 48,32 45,38 Q 42,45 35,48 Q 28,50 22,48 Q 15,45 12,38 Q 8,30 12,22 Q 15,18 20,15 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        
+                                        <path d="M -10,-45 Q -5,-50 5,-48 Q 15,-45 20,-40 Q 25,-35 22,-28 Q 18,-22 12,-20 Q 5,-18 -2,-22 Q -8,-26 -12,-32 Q -15,-38 -10,-45 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        
+                                        <path d="M -50,-45 Q -45,-50 -38,-48 Q -30,-45 -25,-40 Q -20,-35 -22,-28 Q -25,-22 -32,-20 Q -40,-18 -45,-22 Q -50,-26 -52,-32 Q -55,-40 -50,-45 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        
+                                        <path d="M 30,-25 Q 38,-22 45,-18 Q 52,-12 55,-5 Q 58,2 55,8 Q 52,15 48,18 Q 42,22 35,20 Q 28,18 25,12 Q 22,5 25,-2 Q 28,-10 30,-18 Q 32,-22 30,-25 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                        
+                                        <path d="M -60,35 Q -55,30 -50,32 Q -45,35 -42,40 Q -40,45 -42,50 Q -45,55 -50,58 Q -58,62 -65,60 Q -70,58 -72,52 Q -72,45 -68,40 Q -65,36 -60,35 Z" fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.25)" stroke-width="0.8"/>
+                                    </g>
+                                </g>
+                            </svg>
+                            
                             <div class="globe-dots">
                                 @foreach($education as $item)
                                 @if(isset($item['lat'], $item['lng']))
