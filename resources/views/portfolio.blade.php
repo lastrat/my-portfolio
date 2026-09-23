@@ -232,7 +232,7 @@
                     <div class="project-3d-counter">
                         <span class="project-3d-current">01</span>
                         <span class="project-3d-separator">/</span>
-                        <span class="project-3d-total">{{ str_pad($projects->count(), 2, '0', STR_PAD_LEFT) }}</span>
+                        <span class="project-3d-total">{{ str_pad(count($projects), 2, '0', STR_PAD_LEFT) }}</span>
                     </div>
                     <button class="project-3d-nav project-3d-next" id="projectNext" aria-label="Next">
                         <span>→</span>
