@@ -545,17 +545,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const renderer = new THREE.WebGLRenderer({ canvas: globeCanvas, antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setClearColor(0x000000, 0);
+        renderer.outputColorSpace = 'srgb';
 
         const group = new THREE.Group();
         scene.add(group);
 
         const textureLoader = new THREE.TextureLoader();
-        const earthTexture = textureLoader.load("{{ asset('assets/images/earth-blue-marble.jpg') }}");
+        const earthTexture = textureLoader.load(
+            "{{ asset('assets/images/earth-blue-marble.jpg') }}",
+            () => {
+                globeMaterial.needsUpdate = true;
+                console.log('Earth texture loaded');
+            },
+            undefined,
+            (err) => {
+                console.error('Failed to load earth texture', err);
+            }
+        );
         earthTexture.colorSpace = 'srgb';
 
         const globeGeometry = new THREE.SphereGeometry(1, 64, 64);
         const globeMaterial = new THREE.MeshStandardMaterial({
             map: earthTexture,
+            color: 0x1a2b3c,
             roughness: 0.8,
             metalness: 0.1,
         });
