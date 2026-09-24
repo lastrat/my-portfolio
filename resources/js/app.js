@@ -526,4 +526,111 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', updateCarousel);
         updateCarousel();
     }
+
+    // ===== GLOBE INTERACTION =====
+    const globe = document.getElementById('educationGlobe');
+    if (globe) {
+        let rotation = 0;
+        let targetRotation = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startRotation = 0;
+        let autoRotate = true;
+        let autoRotateSpeed = 0.12;
+        let velocity = 0;
+        let lastX = 0;
+        let momentumTimeout;
+
+        function updateGlobe() {
+            if (!isDragging) {
+                if (autoRotate) {
+                    targetRotation += autoRotateSpeed;
+                } else if (Math.abs(velocity) > 0.05) {
+                    targetRotation += velocity;
+                    velocity *= 0.94;
+                } else {
+                    velocity = 0;
+                    autoRotate = true;
+                }
+            }
+
+            rotation += (targetRotation - rotation) * 0.12;
+            globe.style.transform = `rotate(${rotation}deg)`;
+            requestAnimationFrame(updateGlobe);
+        }
+
+        updateGlobe();
+
+        function getEventX(e) {
+            if (e.touches && e.touches.length > 0) return e.touches[0].clientX;
+            return e.clientX;
+        }
+
+        globe.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = getEventX(e);
+            startRotation = targetRotation;
+            lastX = startX;
+            autoRotate = false;
+            velocity = 0;
+            globe.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = getEventX(e) - startX;
+            targetRotation = startRotation + dx * 0.5;
+            const movement = getEventX(e) - lastX;
+            velocity = movement * 0.5;
+            lastX = getEventX(e);
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            globe.style.cursor = 'grab';
+            clearTimeout(momentumTimeout);
+            if (Math.abs(velocity) > 0.1) {
+                momentumTimeout = setTimeout(() => {
+                    autoRotate = true;
+                    velocity = 0;
+                }, 1500);
+            } else {
+                autoRotate = true;
+            }
+        });
+
+        globe.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = getEventX(e);
+            startRotation = targetRotation;
+            lastX = startX;
+            autoRotate = false;
+            velocity = 0;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const dx = getEventX(e) - startX;
+            targetRotation = startRotation + dx * 0.5;
+            const movement = getEventX(e) - lastX;
+            velocity = movement * 0.5;
+            lastX = getEventX(e);
+        }, { passive: true });
+
+        document.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            clearTimeout(momentumTimeout);
+            if (Math.abs(velocity) > 0.1) {
+                momentumTimeout = setTimeout(() => {
+                    autoRotate = true;
+                    velocity = 0;
+                }, 1500);
+            } else {
+                autoRotate = true;
+            }
+        });
+    }
 });

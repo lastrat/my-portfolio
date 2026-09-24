@@ -1797,7 +1797,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     box-shadow: 0 0 60px rgba(2, 194, 2, 0.15),
                 inset 0 0 60px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    animation: globeRotate 40s linear infinite;
+    cursor: grab;
+    transform: rotate(0deg);
+    will-change: transform;
+}
+
+.globe:active {
+    cursor: grabbing;
 }
 
 @keyframes globeRotate {
