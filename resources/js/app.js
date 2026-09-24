@@ -632,6 +632,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        const validItems = educationData.filter(item => item.lat !== undefined && item.lng !== undefined);
+        const linesGroup = new THREE.Group();
+        group.add(linesGroup);
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0x02c202, transparent: true, opacity: 0.7 });
+
+        for (let i = 0; i < validItems.length - 1; i++) {
+            const start = latLngToVector3(validItems[i].lat, validItems[i].lng, 1.015);
+            const end = latLngToVector3(validItems[i + 1].lat, validItems[i + 1].lng, 1.015);
+            const mid = start.clone().add(end).multiplyScalar(0.5);
+            mid.normalize().multiplyScalar(1.08);
+            const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+            const points = curve.getPoints(32);
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const line = new THREE.Line(geometry, lineMaterial);
+            linesGroup.add(line);
+        }
+
         let targetRotationY = 0;
         let targetRotationX = 0;
         let currentRotationY = 0;
