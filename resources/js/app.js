@@ -562,9 +562,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const globeGeometry = new THREE.SphereGeometry(1, 64, 64);
         const globeMaterial = new THREE.MeshStandardMaterial({
             map: earthTexture,
-            color: 0x1a2b3c,
-            roughness: 0.8,
-            metalness: 0.1,
+            color: 0xffffff,
+            roughness: 0.75,
+            metalness: 0.05,
         });
         const globeMesh = new THREE.Mesh(globeGeometry, globeMaterial);
         group.add(globeMesh);
@@ -581,8 +581,8 @@ document.addEventListener('DOMContentLoaded', () => {
             fragmentShader: `
                 varying vec3 vNormal;
                 void main() {
-                    float intensity = pow(0.65 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
-                    gl_FragColor = vec4(0.2, 0.8, 1.0, 1.0) * intensity;
+                    float intensity = pow(0.7 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.5);
+                    gl_FragColor = vec4(0.2, 0.8, 1.0, 1.0) * intensity * 0.6;
                 }
             `,
             blending: THREE.AdditiveBlending,
@@ -592,9 +592,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
         group.add(atmosphere);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
         scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
         directionalLight.position.set(5, 3, 5);
         scene.add(directionalLight);
 
