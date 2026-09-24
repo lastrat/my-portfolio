@@ -641,9 +641,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const start = latLngToVector3(validItems[i].lat, validItems[i].lng, 1.015);
             const end = latLngToVector3(validItems[i + 1].lat, validItems[i + 1].lng, 1.015);
             const mid = start.clone().add(end).multiplyScalar(0.5);
-            mid.normalize().multiplyScalar(1.08);
+            mid.normalize().multiplyScalar(1.45);
             const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-            const points = curve.getPoints(32);
+            const points = curve.getPoints(48);
             const geometry = new THREE.BufferGeometry().setFromPoints(points);
             const line = new THREE.Line(geometry, lineMaterial);
             linesGroup.add(line);
