@@ -528,109 +528,238 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===== GLOBE INTERACTION =====
-    const globe = document.getElementById('educationGlobe');
-    if (globe) {
-        let rotation = 0;
-        let targetRotation = 0;
-        let isDragging = false;
-        let startX = 0;
-        let startRotation = 0;
-        let autoRotate = true;
-        let autoRotateSpeed = 0.12;
-        let velocity = 0;
-        let lastX = 0;
-        let momentumTimeout;
+    const initGlobe = async () => {
+        const globeCanvas = document.getElementById('educationGlobe');
+        if (!globeCanvas) return;
 
-        function updateGlobe() {
-            if (!isDragging) {
-                if (autoRotate) {
-                    targetRotation += autoRotateSpeed;
-                } else if (Math.abs(velocity) > 0.05) {
-                    targetRotation += velocity;
-                    velocity *= 0.94;
-                } else {
-                    velocity = 0;
-                    autoRotate = true;
+        const container = document.getElementById('globeContainer');
+        const tooltip = document.getElementById('globeTooltip');
+        const educationData = window.educationGlobeData || [];
+
+        const THREE = await import('three');
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 1000);
+        camera.position.z = 3.5;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: globeCanvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 0);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const textureLoader = new THREE.TextureLoader();
+        const earthTexture = textureLoader.load("{{ asset('assets/images/earth-blue-marble.jpg') }}");
+        earthTexture.colorSpace = 'srgb';
+
+        const globeGeometry = new THREE.SphereGeometry(1, 64, 64);
+        const globeMaterial = new THREE.MeshStandardMaterial({
+            map: earthTexture,
+            roughness: 0.8,
+            metalness: 0.1,
+        });
+        const globeMesh = new THREE.Mesh(globeGeometry, globeMaterial);
+        group.add(globeMesh);
+
+        const atmosphereGeometry = new THREE.SphereGeometry(1.02, 64, 64);
+        const atmosphereMaterial = new THREE.ShaderMaterial({
+            vertexShader: `
+                varying vec3 vNormal;
+                void main() {
+                    vNormal = normalize(normalMatrix * normal);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
                 }
+            `,
+            fragmentShader: `
+                varying vec3 vNormal;
+                void main() {
+                    float intensity = pow(0.65 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
+                    gl_FragColor = vec4(0.2, 0.8, 1.0, 1.0) * intensity;
+                }
+            `,
+            blending: THREE.AdditiveBlending,
+            side: THREE.BackSide,
+            transparent: true,
+        });
+        const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+        group.add(atmosphere);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLight.position.set(5, 3, 5);
+        scene.add(directionalLight);
+
+        function latLngToVector3(lat, lng, radius) {
+            const phi = (90 - lat) * (Math.PI / 180);
+            const theta = (lng + 180) * (Math.PI / 180);
+            const x = -(radius * Math.sin(phi) * Math.cos(theta));
+            const z = radius * Math.sin(phi) * Math.sin(theta);
+            const y = radius * Math.cos(phi);
+            return new THREE.Vector3(x, y, z);
+        }
+
+        const markersGroup = new THREE.Group();
+        group.add(markersGroup);
+        const markerMeshes = [];
+
+        educationData.forEach(item => {
+            if (item.lat !== undefined && item.lng !== undefined) {
+                const pos = latLngToVector3(item.lat, item.lng, 1.01);
+                const dotGeometry = new THREE.SphereGeometry(0.018, 16, 16);
+                const dotMaterial = new THREE.MeshBasicMaterial({ color: 0x02c202 });
+                const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+                dot.position.copy(pos);
+                dot.userData = { location: item.location, title: item.title };
+                markersGroup.add(dot);
+                markerMeshes.push(dot);
+
+                const ringGeometry = new THREE.RingGeometry(0.022, 0.028, 32);
+                const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x02c202, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+                const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+                ring.position.copy(pos);
+                ring.lookAt(new THREE.Vector3(0, 0, 0));
+                ring.userData = { isPulse: true };
+                markersGroup.add(ring);
             }
+        });
 
-            rotation += (targetRotation - rotation) * 0.12;
-            globe.style.transform = `rotate(${rotation}deg)`;
-            requestAnimationFrame(updateGlobe);
+        let targetRotationY = 0;
+        let targetRotationX = 0;
+        let currentRotationY = 0;
+        let currentRotationX = 0;
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let autoRotate = true;
+        let autoRotateSpeed = 0.002;
+
+        function resizeRenderer() {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            renderer.setSize(width, height, false);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
         }
+        resizeRenderer();
+        window.addEventListener('resize', resizeRenderer);
 
-        updateGlobe();
-
-        function getEventX(e) {
-            if (e.touches && e.touches.length > 0) return e.touches[0].clientX;
-            return e.clientX;
-        }
-
-        globe.addEventListener('mousedown', (e) => {
+        globeCanvas.addEventListener('mousedown', (e) => {
             isDragging = true;
-            startX = getEventX(e);
-            startRotation = targetRotation;
-            lastX = startX;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
             autoRotate = false;
-            velocity = 0;
-            globe.style.cursor = 'grabbing';
-            e.preventDefault();
         });
 
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
-            const dx = getEventX(e) - startX;
-            targetRotation = startRotation + dx * 0.5;
-            const movement = getEventX(e) - lastX;
-            velocity = movement * 0.5;
-            lastX = getEventX(e);
+            const deltaMove = {
+                x: e.clientX - previousMousePosition.x,
+                y: e.clientY - previousMousePosition.y,
+            };
+            targetRotationY += deltaMove.x * 0.005;
+            targetRotationX += deltaMove.y * 0.005;
+            targetRotationX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, targetRotationX));
+            previousMousePosition = { x: e.clientX, y: e.clientY };
         });
 
         document.addEventListener('mouseup', () => {
-            if (!isDragging) return;
-            isDragging = false;
-            globe.style.cursor = 'grab';
-            clearTimeout(momentumTimeout);
-            if (Math.abs(velocity) > 0.1) {
-                momentumTimeout = setTimeout(() => {
-                    autoRotate = true;
-                    velocity = 0;
-                }, 1500);
-            } else {
-                autoRotate = true;
+            if (isDragging) {
+                isDragging = false;
+                setTimeout(() => {
+                    if (!isDragging) autoRotate = true;
+                }, 2000);
             }
         });
 
-        globe.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = getEventX(e);
-            startRotation = targetRotation;
-            lastX = startX;
-            autoRotate = false;
-            velocity = 0;
+        globeCanvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                autoRotate = false;
+            }
         }, { passive: true });
 
-        document.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const dx = getEventX(e) - startX;
-            targetRotation = startRotation + dx * 0.5;
-            const movement = getEventX(e) - lastX;
-            velocity = movement * 0.5;
-            lastX = getEventX(e);
+        globeCanvas.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            const deltaMove = {
+                x: e.touches[0].clientX - previousMousePosition.x,
+                y: e.touches[0].clientY - previousMousePosition.y,
+            };
+            targetRotationY += deltaMove.x * 0.008;
+            targetRotationX += deltaMove.y * 0.008;
+            targetRotationX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, targetRotationX));
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         }, { passive: true });
 
-        document.addEventListener('touchend', () => {
-            if (!isDragging) return;
+        globeCanvas.addEventListener('touchend', () => {
             isDragging = false;
-            clearTimeout(momentumTimeout);
-            if (Math.abs(velocity) > 0.1) {
-                momentumTimeout = setTimeout(() => {
-                    autoRotate = true;
-                    velocity = 0;
-                }, 1500);
+            setTimeout(() => {
+                if (!isDragging) autoRotate = true;
+            }, 2000);
+        });
+
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function showTooltip(screenPos, text) {
+            tooltip.textContent = text;
+            tooltip.style.left = screenPos.x + 'px';
+            tooltip.style.top = screenPos.y + 'px';
+            tooltip.classList.add('visible');
+        }
+
+        function hideTooltip() {
+            tooltip.classList.remove('visible');
+        }
+
+        globeCanvas.addEventListener('mousemove', (e) => {
+            const rect = globeCanvas.getBoundingClientRect();
+            mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(markerMeshes);
+
+            if (intersects.length > 0) {
+                const data = intersects[0].object.userData;
+                if (data && data.location) {
+                    showTooltip({ x: e.clientX - rect.left, y: e.clientY - rect.top }, data.location);
+                }
+                globeCanvas.style.cursor = 'pointer';
             } else {
-                autoRotate = true;
+                hideTooltip();
+                globeCanvas.style.cursor = isDragging ? 'grabbing' : 'grab';
             }
         });
-    }
+
+        globeCanvas.addEventListener('mouseleave', hideTooltip);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (autoRotate) {
+                targetRotationY += autoRotateSpeed;
+            }
+
+            currentRotationY += (targetRotationY - currentRotationY) * 0.08;
+            currentRotationX += (targetRotationX - currentRotationX) * 0.08;
+
+            group.rotation.y = currentRotationY;
+            group.rotation.x = currentRotationX;
+
+            const time = Date.now() * 0.002;
+            markersGroup.children.forEach(child => {
+                if (child.userData && child.userData.isPulse) {
+                    const scale = 1 + Math.sin(time) * 0.3;
+                    child.scale.set(scale, scale, scale);
+                    child.material.opacity = 0.3 + Math.sin(time) * 0.3;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+        animate();
+    };
+
+    initGlobe();
 });

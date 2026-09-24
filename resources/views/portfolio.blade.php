@@ -350,81 +350,15 @@
 
                 <div class="education-globe-col reveal reveal-delay-1">
                     <div class="globe-container" id="globeContainer">
-                        <div class="globe" id="educationGlobe">
-                            <div class="globe-sphere"></div>
-                            
-                            <svg class="globe-map" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <pattern id="continentDots" x="0" y="0" width="2.4" height="2.4" patternUnits="userSpaceOnUse">
-                                        <circle cx="1.2" cy="1.2" r="0.52" fill="rgba(2, 194, 2, 0.8)"/>
-                                    </pattern>
-                                </defs>
-                                
-                                <g transform="translate(100, 100) scale(0.75)">
-                                    <ellipse cx="0" cy="0" rx="96" ry="96" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
-                                    
-                                    <g transform="rotate(-23.5)">
-                                        <g fill="url(#continentDots)" stroke="rgba(2, 194, 2, 0.4)" stroke-width="0.6" stroke-linejoin="round">
-                                            <!-- North America -->
-                                            <path d="M -62,-18 L -63,-24 L -60,-20 L -58,-26 L -55,-22 L -52,-26 L -48,-24 L -45,-28 L -40,-32 L -36,-38 L -38,-42 L -42,-44 L -46,-42 L -50,-38 L -54,-36 L -58,-40 L -62,-36 L -64,-30 L -66,-22 Z"/>
-                                            <path d="M -55,-20 L -52,-24 L -48,-22 L -44,-25 L -40,-28 L -38,-32 L -40,-36 L -44,-34 L -48,-30 L -52,-28 L -54,-24 Z"/>
-                                            
-                                            <!-- South America -->
-                                            <path d="M -52,5 L -48,8 L -42,10 L -36,14 L -30,18 L -28,24 L -32,28 L -36,26 L -40,20 L -46,14 L -50,10 Z"/>
-                                            <path d="M -48,8 L -44,12 L -38,16 L -32,20 L -30,24 L -34,26 L -38,22 L -44,16 L -48,12 Z"/>
-                                            
-                                            <!-- Europe -->
-                                            <path d="M -22,-30 L -20,-33 L -16,-32 L -12,-35 L -10,-34 L -8,-38 L -6,-40 L -8,-44 L -12,-46 L -16,-44 L -18,-40 L -20,-36 L -22,-33 Z"/>
-                                            <path d="M -18,-32 L -15,-35 L -12,-34 L -10,-37 L -12,-40 L -14,-38 L -16,-35 Z"/>
-                                            
-                                            <!-- Africa -->
-                                            <path d="M -15,-32 L -10,-35 L -5,-35 L 0,-33 L 5,-35 L 10,-33 L 15,-30 L 18,-25 L 20,-18 L 18,-10 L 15,-2 L 10,4 L 5,8 L 0,10 L -5,8 L -10,4 L -12,-5 L -15,-15 Z"/>
-                                            <path d="M -10,-32 L -5,-33 L 0,-31 L 5,-33 L 10,-30 L 12,-25 L 10,-18 L 8,-10 L 5,-4 L 0,0 L -5,-2 L -8,-10 L -10,-22 Z"/>
-                                            
-                                            <!-- Middle East -->
-                                            <path d="M 5,-32 L 10,-30 L 15,-28 L 20,-25 L 22,-20 L 20,-15 L 15,-12 L 10,-14 L 6,-18 L 4,-24 L 4,-28 Z"/>
-                                            
-                                            <!-- Asia -->
-                                            <path d="M -8,-44 L 0,-42 L 10,-38 L 20,-32 L 30,-28 L 40,-22 L 50,-16 L 55,-8 L 50,0 L 42,4 L 35,2 L 28,0 L 20,-5 L 12,-10 L 5,-18 L 0,-25 L -5,-35 Z"/>
-                                            <path d="M 0,-40 L 8,-36 L 18,-30 L 28,-26 L 38,-20 L 46,-14 L 50,-8 L 46,-2 L 38,2 L 30,0 L 22,-4 L 14,-10 L 8,-18 L 2,-26 L -2,-34 Z"/>
-                                            <path d="M -5,-38 L 2,-34 L 10,-28 L 18,-24 L 24,-20 L 28,-14 L 26,-8 L 20,-4 L 14,-8 L 8,-16 L 2,-24 L -2,-32 Z"/>
-                                            
-                                            <!-- Southeast Asia / Indonesia -->
-                                            <path d="M 28,0 L 32,-4 L 36,-2 L 38,2 L 36,6 L 32,6 L 28,4 Z"/>
-                                            <path d="M 32,2 L 36,0 L 40,2 L 42,6 L 40,10 L 36,10 L 32,8 Z"/>
-                                            <path d="M 36,6 L 40,4 L 44,6 L 46,10 L 44,14 L 40,14 L 36,12 Z"/>
-                                            
-                                            <!-- Australia -->
-                                            <path d="M 28,12 L 35,10 L 42,12 L 45,18 L 42,24 L 35,25 L 28,22 L 25,18 L 26,14 Z"/>
-                                            <path d="M 30,12 L 36,11 L 42,13 L 44,18 L 42,22 L 36,23 L 30,20 L 28,16 Z"/>
-                                            
-                                            <!-- Greenland -->
-                                            <path d="M -35,-52 L -30,-54 L -25,-52 L -22,-48 L -24,-44 L -28,-42 L -32,-44 L -34,-48 Z"/>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
-                            
-                            <div class="globe-dots">
-                                @foreach($education as $item)
-                                @if(isset($item['lat'], $item['lng']))
-                                <div class="globe-dot" style="--lat: {{ $item['lat'] }}; --lng: {{ $item['lng'] }};" data-location="{{ $item['location'] ?? '' }}" data-title="{{ $item['title'] ?? '' }}">
-                                    <span class="globe-dot-pulse"></span>
-                                    <span class="globe-dot-label">{{ $item['location'] ?? '' }}</span>
-                                </div>
-                                @endif
-                                @endforeach
-                            </div>
-                            <div class="globe-lines">
-                                @for($i = 0; $i < count($education) - 1; $i++)
-                                @if(isset($education[$i]['lat'], $education[$i]['lng'], $education[$i + 1]['lat'], $education[$i + 1]['lng']))
-                                <div class="globe-line" style="--lat1: {{ $education[$i]['lat'] }}; --lng1: {{ $education[$i]['lng'] }}; --lat2: {{ $education[$i + 1]['lat'] }}; --lng2: {{ $education[$i + 1]['lng'] }};"></div>
-                                @endif
-                                @endfor
-                            </div>
+                        <canvas id="educationGlobe"></canvas>
+                        <div class="globe-overlay">
+                            <div class="globe-overlay-label">Earth</div>
                         </div>
-                        <div class="globe-glow"></div>
+                        <div class="globe-tooltip" id="globeTooltip"></div>
                     </div>
+                    <script>
+                        window.educationGlobeData = @json($education);
+                    </script>
                 </div>
             </div>
         </div>

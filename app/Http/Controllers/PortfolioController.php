@@ -108,7 +108,7 @@ class PortfolioController extends Controller
             [
                 'year' => '2021 - 2024',
                 'title' => $locale === 'fr' ? 'Licence en Génie Logiciel' : 'Bachelor\'s Degree in Software Engineering',
-                'company' => $locale === 'fr' ? 'Institut Africain d\'Informatique (IAI), Yaoundé, Cameroun' : 'African Institute of Computer Science (IAI), Yaoundé, Cameroon',
+                'company' => $locale === 'fr' ? 'Institut Africain d\'Informatique (IAI)' : 'African Institute of Computer Science (IAI)',
                 'description' => $locale === 'fr' 
                     ? 'Formation approfondie en génie logiciel, bases de données, algorithmique et développement d\'applications. Équivalence canadienne : Bachelor\'s Degree.' 
                     : 'In-depth training in software engineering, databases, algorithms, and application development. Canadian equivalence: Bachelor\'s Degree.',
@@ -121,8 +121,17 @@ class PortfolioController extends Controller
                 'title' => $locale === 'fr' ? 'Baccalauréat' : 'High School Diploma',
                 'company' => $locale === 'fr' ? 'Lycée Bilingue de Yaoundé' : 'Bilingual High School of Yaoundé',
                 'description' => $locale === 'fr' ? 'Baccalauréat série C, spécialité mathématiques et physique.' : 'High School Diploma, Science track.',
-                'location' => $locale === 'fr' ? 'Yaoundé, Cameroun' : 'Yaoundé, Cameroon',
-                'lat' => 3.852,
+                'location' => $locale === 'fr' ? 'Essos, Yaoundé' : 'Essos, Yaoundé',
+                'lat' => 3.860,
+                'lng' => 11.520,
+            ],
+            [
+                'year' => '2021',
+                'title' => $locale === 'fr' ? 'Baccalauréat' : 'High School Diploma',
+                'company' => $locale === 'fr' ? 'Lycée Bilingue de Yaoundé' : 'Bilingual High School of Yaoundé',
+                'description' => $locale === 'fr' ? 'Baccalauréat série C, spécialité mathématiques et physique.' : 'High School Diploma, Science track.',
+                'location' => $locale === 'fr' ? 'Ngousso Éleveur, Yaoundé' : 'Ngousso Éleveur, Yaoundé',
+                'lat' => 3.835,
                 'lng' => 11.515,
             ],
         ];
