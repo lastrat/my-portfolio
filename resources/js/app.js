@@ -551,17 +551,12 @@ document.addEventListener('DOMContentLoaded', () => {
         scene.add(group);
 
         const textureLoader = new THREE.TextureLoader();
-        const earthTexture = textureLoader.load(
-            "{{ asset('assets/images/earth-blue-marble.jpg') }}",
-            () => {
-                globeMaterial.needsUpdate = true;
-                console.log('Earth texture loaded');
-            },
-            undefined,
-            (err) => {
-                console.error('Failed to load earth texture', err);
-            }
-        );
+        const earthTexture = textureLoader.load(window.educationGlobeTexture, () => {
+            globeMaterial.needsUpdate = true;
+            console.log('Earth texture loaded');
+        }, undefined, (err) => {
+            console.error('Failed to load earth texture', err);
+        });
         earthTexture.colorSpace = 'srgb';
 
         const globeGeometry = new THREE.SphereGeometry(1, 64, 64);

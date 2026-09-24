@@ -358,6 +358,7 @@
                     </div>
                     <script>
                         window.educationGlobeData = @json($education);
+                        window.educationGlobeTexture = "{{ asset('assets/images/earth-blue-marble.jpg') }}";
                     </script>
                 </div>
             </div>
