@@ -255,12 +255,27 @@
                 <p class="section-description">{{ $translations['tech_stack_desc'] ?? 'The tools and technologies I use.' }}</p>
             </div>
 
-            <div class="tech-grid">
-                @foreach($techStack as $tech)
-                <div class="tech-item reveal">
-                    <div class="tech-icon">{{ substr($tech['name'], 0, 2) }}</div>
-                    <div class="tech-name">{{ $tech['name'] }}</div>
-                    <div class="tech-category">{{ $tech['category'] }}</div>
+            <div class="tech-categories">
+                @php
+                    $grouped = [];
+                    foreach ($techStack as $tech) {
+                        $grouped[$tech['category']][] = $tech;
+                    }
+                @endphp
+
+                @foreach($grouped as $category => $items)
+                <div class="tech-category reveal">
+                    <h3 class="tech-category-title">{{ $category }}</h3>
+                    <div class="tech-items">
+                        @foreach($items as $tech)
+                        <div class="tech-item" title="{{ $tech['name'] }}">
+                            <div class="tech-icon">
+                                {!! $tech['icon'] !!}
+                            </div>
+                            <span class="tech-name">{{ $tech['name'] }}</span>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
                 @endforeach
             </div>
