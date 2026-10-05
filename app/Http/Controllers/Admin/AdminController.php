@@ -72,7 +72,7 @@ class AdminController extends Controller
 
     public function createProject()
     {
-        return view('admin.projects_form');
+        return view('admin.projects_form', ['project' => new Project()]);
     }
 
     public function storeProject(Request $request)
@@ -138,7 +138,7 @@ class AdminController extends Controller
 
     public function createExperience()
     {
-        return view('admin.experiences_form');
+        return view('admin.experiences_form', ['experience' => new Experience()]);
     }
 
     public function storeExperience(Request $request)
@@ -190,7 +190,7 @@ class AdminController extends Controller
 
     public function createEducation()
     {
-        return view('admin.education_form');
+        return view('admin.education_form', ['education' => new Education()]);
     }
 
     public function storeEducation(Request $request)
@@ -248,7 +248,7 @@ class AdminController extends Controller
 
     public function createTech()
     {
-        return view('admin.tech_form');
+        return view('admin.tech_form', ['tech' => new Tech()]);
     }
 
     public function storeTech(Request $request)
