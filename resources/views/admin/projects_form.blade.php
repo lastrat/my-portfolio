@@ -51,7 +51,7 @@
 
             <div class="form-group">
                 <label class="form-label">Technologies (comma separated)</label>
-                <input type="text" name="tech" class="form-input" value="{{ old('tech', $project->tech ? implode(', ', json_decode($project->tech, true) ?? []) : '') }}" required>
+                <input type="text" name="tech" class="form-input" value="{{ old('tech', $project->tech ? (is_string($project->tech) ? implode(', ', json_decode($project->tech, true) ?? []) : implode(', ', $project->tech)) : '') }}" required>
             </div>
 
             <div class="form-group">
