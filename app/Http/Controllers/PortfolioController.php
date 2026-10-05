@@ -26,7 +26,7 @@ class PortfolioController extends Controller
                 'role' => $project->role,
                 'year' => $project->year,
                 'client' => $project->client,
-                'tech' => $project->tech ?? [],
+                'tech' => is_array($project->tech) ? $project->tech : (json_decode($project->tech, true) ?: []),
                 'image' => $project->image,
             ];
         })->toArray();
