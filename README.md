@@ -1,0 +1,177 @@
+# My Portfolio
+
+Premium portfolio built with **Laravel**, **Bootstrap**, and modern **CSS/JS**.  
+Dark / Light / Auto modes. Bilingual **FR / EN**.  
+Custom cursor, particle system, scroll animations, marquee, and responsive design.
+
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?logo=laravel&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B2?logo=bootstrap&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?logo=vite&logoColor=white)
+
+---
+
+## Screenshots
+
+> Hero section — Dark mode
+
+![Hero](public/assets/images/screenshots/hero-dark.png)
+
+> Selected Work
+
+![Work](public/assets/images/screenshots/work.png)
+
+---
+
+## Features
+
+- **Multilingual** — French / English switcher
+- **3 display modes** — Dark, Light, Auto (system preference)
+- **Premium UI/UX** — custom cursor, particle canvas, noise overlay, glassmorphism
+- **Scroll animations** — reveal, counter, text scramble, parallax
+- **Marquee** — infinite technology ticker
+- **Responsive** — desktop + mobile menu
+- **Accessible** — prefers-reduced-motion, focus-visible, alt text
+- **Portfolio-ready** — projects, tech stack, experience timeline, about, lab, contact
+
+---
+
+## Sections
+
+1. Preloader
+2. Navbar
+3. Hero + particle canvas + stats
+4. Marquee
+5. Selected Work
+6. Tech Stack
+7. Experience
+8. About Me
+9. Experiments / Lab
+10. Contact
+11. Footer
+
+---
+
+## Tech stack
+
+**Backend**
+
+- Laravel 11
+- PHP 8.2+
+
+**Frontend**
+
+- Bootstrap 5.3
+- Vite
+- GSAP + ScrollTrigger
+- Custom CSS + vanilla JS
+
+---
+
+## Project structure
+
+```
+app/
+bootstrap/
+config/
+database/
+public/
+  assets/
+    CV.pdf
+    images/
+      moi.png
+      wb.jpg
+resources/
+  css/
+    app.css
+  js/
+    app.js
+  lang/
+    en/
+    fr/
+  views/
+    portfolio.blade.php
+routes/
+storage/
+tests/
+vite.config.js
+```
+
+---
+
+## Requirements
+
+- PHP 8.2+
+- Composer
+- Node.js 18+
+- npm or yarn
+
+---
+
+## Installation
+
+```bash
+# 1. Clone
+git clone https://github.com/lastrat/my-portfolio.git
+cd my-portfolio
+
+# 2. Install PHP dependencies
+composer install
+
+# 3. Install JS dependencies
+npm install
+
+# 4. Build assets
+npm run dev
+# or
+npm run build
+
+# 5. Start server
+php artisan serve --port=8080
+```
+
+Then open:
+
+```
+http://localhost:8080
+```
+
+---
+
+## Env
+
+```env
+APP_NAME="My Portfolio"
+APP_URL=http://localhost:8080
+APP_LOCALE=en
+```
+
+---
+
+## Localization
+
+```php
+// app/Http/Controllers/PortfolioController.php
+```
+
+Switch language:
+
+```
+/lang/fr
+/lang/en
+```
+
+---
+
+## Browser support
+
+- Chrome
+- Edge
+- Firefox
+- Safari
+
+---
+
+## License
+
+Open source — MIT.
