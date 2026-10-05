@@ -84,9 +84,13 @@ class AdminController extends Controller
             'year' => 'required|string|max:20',
             'client' => 'required|string|max:255',
             'tech' => 'required|string',
-            'image' => 'nullable|string|max:500',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'slug' => 'required|string|max:255|unique:projects,slug',
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('projects', 'public');
+        }
 
         $validated['tech'] = explode(',', $validated['tech']);
         $validated['tech'] = json_encode(array_map('trim', $validated['tech']));
@@ -110,9 +114,13 @@ class AdminController extends Controller
             'year' => 'required|string|max:20',
             'client' => 'required|string|max:255',
             'tech' => 'required|string',
-            'image' => 'nullable|string|max:500',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'slug' => 'required|string|max:255|unique:projects,slug,' . $project->id,
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('projects', 'public');
+        }
 
         $validated['tech'] = explode(',', $validated['tech']);
         $validated['tech'] = json_encode(array_map('trim', $validated['tech']));

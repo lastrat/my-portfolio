@@ -8,7 +8,7 @@
             <h2 class="admin-card-title">{{ $project->exists ? 'Edit Project' : 'New Project' }}</h2>
         </div>
 
-        <form method="POST" action="{{ $project->exists ? route('admin.projects.update', $project) : route('admin.projects.store') }}">
+        <form method="POST" action="{{ $project->exists ? route('admin.projects.update', $project) : route('admin.projects.store') }}" enctype="multipart/form-data">
             @csrf
             @if($project->exists)
                 @method('PUT')
@@ -41,8 +41,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Image Path</label>
-                    <input type="text" name="image" class="form-input" value="{{ old('image', $project->image) }}" placeholder="assets/images/projects/image.jpg">
+                    <label class="form-label">Image</label>
+                    <input type="file" name="image" class="form-input" accept="image/*">
+                    @if($project->image)
+                        <img src="{{ asset($project->image) }}" style="max-width: 200px; margin-top: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                    @endif
                 </div>
             </div>
 
