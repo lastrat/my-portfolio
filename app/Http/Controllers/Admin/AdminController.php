@@ -66,7 +66,7 @@ class AdminController extends Controller
     // Projects CRUD
     public function projects()
     {
-        $projects = Project::all();
+        $projects = Project::latest()->paginate(10);
         return view('admin.projects', compact('projects'));
     }
 
@@ -140,7 +140,7 @@ class AdminController extends Controller
     // Experiences CRUD
     public function experiences()
     {
-        $experiences = Experience::all();
+        $experiences = Experience::latest()->paginate(10);
         return view('admin.experiences', compact('experiences'));
     }
 
@@ -192,7 +192,7 @@ class AdminController extends Controller
     // Education CRUD
     public function education()
     {
-        $education = Education::all();
+        $education = Education::latest()->paginate(10);
         return view('admin.education', compact('education'));
     }
 
@@ -250,7 +250,7 @@ class AdminController extends Controller
     // Tech CRUD
     public function tech()
     {
-        $techs = Tech::all();
+        $techs = Tech::latest()->paginate(10);
         return view('admin.tech', compact('techs'));
     }
 

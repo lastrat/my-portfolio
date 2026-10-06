@@ -47,5 +47,10 @@
                 </tbody>
             </table>
         </div>
+        @if($projects->hasPages())
+            <div style="margin-top: 20px; display: flex; justify-content: center;">
+                {{ $projects->links() }}
+            </div>
+        @endif
     </div>
 @endsection

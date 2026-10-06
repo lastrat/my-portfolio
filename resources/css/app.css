@@ -2188,3 +2188,40 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     box-shadow: 0 10px 30px rgba(2, 194, 2, 0.3);
 }
 
+.admin-pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.admin-pagination a,
+.admin-pagination span {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: var(--font-code);
+    transition: var(--transition-fast);
+    background: var(--bg-card);
+}
+
+.admin-pagination a:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
+.admin-pagination .active {
+    background: var(--accent-gradient);
+    color: var(--bg-primary);
+    border-color: transparent;
+    font-weight: 600;
+}
+
+.admin-pagination .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+

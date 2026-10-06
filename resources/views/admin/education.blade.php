@@ -47,5 +47,10 @@
                 </tbody>
             </table>
         </div>
+        @if($education->hasPages())
+            <div style="margin-top: 20px; display: flex; justify-content: center;">
+                {{ $education->links() }}
+            </div>
+        @endif
     </div>
 @endsection

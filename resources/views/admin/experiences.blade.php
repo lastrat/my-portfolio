@@ -45,5 +45,10 @@
                 </tbody>
             </table>
         </div>
+        @if($experiences->hasPages())
+            <div style="margin-top: 20px; display: flex; justify-content: center;">
+                {{ $experiences->links() }}
+            </div>
+        @endif
     </div>
 @endsection
