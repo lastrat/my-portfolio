@@ -8,7 +8,7 @@
     --text-primary: #F5F5F5;
     --text-secondary: #A1A1AA;
     --accent-green: #02C202;
-    --accent-cyan: #00C6FF;
+    --accent-cyan: #006915;
     --accent-gradient: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -2228,6 +2228,50 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .admin-pagination svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+}
+
+.admin-pagination nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.admin-pagination .page-link {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: var(--font-code);
+    transition: var(--transition-fast);
+    background: var(--bg-card);
+    min-width: 40px;
+    text-align: center;
+}
+
+.admin-pagination .page-link:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
+.admin-pagination .page-item.active .page-link {
+    background: var(--accent-gradient);
+    color: var(--bg-primary);
+    border-color: transparent;
+    font-weight: 600;
+}
+
+.admin-pagination .page-item.disabled .page-link {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.admin-pagination .page-item svg {
     width: 14px;
     height: 14px;
     fill: currentColor;

@@ -16,7 +16,7 @@
             --text-primary: #f0f0f0;
             --text-secondary: #a0a0a0;
             --accent-green: #02c202;
-            --accent-gradient: linear-gradient(135deg, #02c202 0%, #00c6ff 100%);
+            --accent-gradient: linear-gradient(135deg, #02c202 0%, #028a1d 100%);
             --transition-fast: all 0.2s ease;
             --font-display: 'Space Grotesk', sans-serif;
             --font-body: 'Inter', sans-serif;
