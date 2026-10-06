@@ -2236,22 +2236,30 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .admin-pagination nav {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
 }
 
+.admin-pagination .page-item {
+    margin: 0;
+}
+
 .admin-pagination .page-link {
-    padding: 8px 14px;
+    padding: 6px 12px;
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 8px;
     color: var(--text-primary);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 12px;
     font-family: var(--font-code);
     transition: var(--transition-fast);
     background: var(--bg-card);
-    min-width: 40px;
-    text-align: center;
+    min-width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
 }
 
 .admin-pagination .page-link:hover {
@@ -2267,13 +2275,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .admin-pagination .page-item.disabled .page-link {
-    opacity: 0.5;
+    opacity: 0.4;
     pointer-events: none;
 }
 
-.admin-pagination .page-item svg {
-    width: 14px;
-    height: 14px;
-    fill: currentColor;
+.admin-pagination svg {
+    width: 10px !important;
+    height: 10px !important;
+    max-width: 10px;
+    max-height: 10px;
+}
+
+.admin-pagination .sr-only {
+    display: none;
 }
 
