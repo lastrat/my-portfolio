@@ -2206,6 +2206,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     font-family: var(--font-code);
     transition: var(--transition-fast);
     background: var(--bg-card);
+    min-width: 40px;
+    text-align: center;
 }
 
 .admin-pagination a:hover {
@@ -2223,5 +2225,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .admin-pagination .disabled {
     opacity: 0.5;
     pointer-events: none;
+}
+
+.admin-pagination svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
 }
 
