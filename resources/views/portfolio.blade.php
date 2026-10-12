@@ -189,7 +189,7 @@
                             <div class="project-3d-card-glow"></div>
                             
                             <div class="project-3d-image">
-                                <img src="{{ asset($project['image'] ?? 'https://via.placeholder.com/800x500') }}" 
+                                <img src="{{ $project['image'] ?? 'https://via.placeholder.com/800x500' }}"
                                      alt="{{ $project['title'] }}" 
                                      loading="lazy"
                                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">

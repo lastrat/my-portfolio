@@ -43,8 +43,8 @@
                 <div class="form-group">
                     <label class="form-label">Image</label>
                     <input type="file" name="image" class="form-input" accept="image/*">
-                    @if($project->image)
-                        <img src="{{ asset($project->image) }}" style="max-width: 200px; margin-top: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                    @if($project->image_url)
+                        <img src="{{ $project->image_url }}" style="max-width: 200px; margin-top: 10px; border-radius: 8px; border: 1px solid var(--border);">
                     @endif
                 </div>
             </div>
