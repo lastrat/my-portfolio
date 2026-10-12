@@ -28,9 +28,9 @@ class Project extends Model
             : $image;
 
         if (Storage::disk('public')->exists($path)) {
-            return Storage::disk('public')->url($path);
+            return asset('storage/'.$path);
         }
 
-        return asset($path);
+        return file_exists(public_path($path)) ? asset($path) : null;
     }
 }

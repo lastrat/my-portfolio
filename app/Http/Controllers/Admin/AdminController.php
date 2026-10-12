@@ -11,6 +11,7 @@ use App\Models\Education;
 use App\Models\Tech;
 use App\Models\Skill;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -119,10 +120,12 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($project->image && str_starts_with($project->image, 'projects/')) {
-                Storage::disk('public')->delete($project->image);
-            }
+            $oldImage = $project->image;
             $validated['image'] = $request->file('image')->store('projects', 'public');
+
+            if ($oldImage && str_starts_with($oldImage, 'projects/')) {
+                Storage::disk('public')->delete($oldImage);
+            }
         }
 
         $validated['tech'] = explode(',', $validated['tech']);
