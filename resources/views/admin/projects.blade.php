@@ -14,6 +14,7 @@
             <table class="admin-table">
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Title</th>
                         <th>Role</th>
                         <th>Year</th>
@@ -24,6 +25,13 @@
                 <tbody>
                     @forelse($projects as $project)
                         <tr>
+                            <td>
+                                @if($project->image_url)
+                                    <img src="{{ $project->image_url }}" alt="{{ $project->title }}" style="width: 56px; height: 36px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border);">
+                                @else
+                                    <span style="color: var(--text-secondary);">—</span>
+                                @endif
+                            </td>
                             <td><strong>{{ $project->title }}</strong></td>
                             <td>{{ $project->role }}</td>
                             <td>{{ $project->year }}</td>
@@ -39,7 +47,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                            <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-secondary);">
                                 No projects yet
                             </td>
                         </tr>

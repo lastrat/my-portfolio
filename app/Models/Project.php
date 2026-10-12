@@ -27,8 +27,10 @@ class Project extends Model
             ? Str::after($image, 'storage/')
             : $image;
 
-        return Storage::disk('public')->exists($path)
-            ? Storage::disk('public')->url($path)
-            : null;
+        if (Storage::disk('public')->exists($path)) {
+            return Storage::disk('public')->url($path);
+        }
+
+        return asset($path);
     }
 }
