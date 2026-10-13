@@ -49,10 +49,15 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Technologies (comma separated)</label>
-                <input type="text" name="tech" class="form-input" value="{{ old('tech', $project->tech ? (is_string($project->tech) ? implode(', ', json_decode($project->tech, true) ?? []) : implode(', ', $project->tech)) : '') }}" required>
-            </div>
+                <div class="form-group">
+                    <label class="form-label">Project Link (URL)</label>
+                    <input type="url" name="link" class="form-input" value="{{ old('link', $project->link) }}" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Technologies (comma separated)</label>
+                    <input type="text" name="tech" class="form-input" value="{{ old('tech', $project->tech ? (is_string($project->tech) ? implode(', ', json_decode($project->tech, true) ?? []) : implode(', ', $project->tech)) : '') }}" required>
+                </div>
 
             <div class="form-group">
                 <label class="form-label">Description</label>

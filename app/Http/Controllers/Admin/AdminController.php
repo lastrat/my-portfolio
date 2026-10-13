@@ -86,6 +86,7 @@ class AdminController extends Controller
             'client' => 'required|string|max:255',
             'tech' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'link' => 'nullable|url|max:2048',
             'slug' => 'required|string|max:255|unique:projects,slug',
         ]);
 
@@ -116,6 +117,7 @@ class AdminController extends Controller
             'client' => 'required|string|max:255',
             'tech' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:8048',
+            'link' => 'nullable|url|max:2048',
             'slug' => 'required|string|max:255|unique:projects,slug,' . $project->id,
         ]);
 

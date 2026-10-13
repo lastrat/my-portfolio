@@ -214,8 +214,8 @@
                                         <span class="project-3d-tech-tag">{{ $tech }}</span>
                                         @endforeach
                                     </div>
-                                    <a href="#" class="project-3d-link">
-                                        <span class="project-3d-link-text">View Project</span>
+                                    <a href="{{ $project['link'] ?? '#' }}" class="project-3d-link" @if(!empty($project['link'])) target="_blank" rel="noopener" @endif>
+                                        <span class="project-3d-link-text">{{ $translations['view_project'] ?? 'View Project' }}</span>
                                         <span class="project-3d-link-arrow">→</span>
                                     </a>
                                 </div>

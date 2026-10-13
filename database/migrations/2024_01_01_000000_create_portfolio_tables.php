@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('client');
             $table->json('tech');
             $table->string('image')->nullable();
+            $table->string('link')->nullable();
             $table->string('slug')->unique();
             $table->timestamps();
         });
