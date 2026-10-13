@@ -9,6 +9,7 @@ use App\Models\Experience;
 use App\Models\Education;
 use App\Models\Tech;
 use App\Models\Skill;
+use App\Models\Contact;
 
 class PortfolioController extends Controller
 {
@@ -79,6 +80,19 @@ class PortfolioController extends Controller
         return view('portfolio', compact(
             'translations', 'projects', 'experience', 'education', 'techStack', 'skills', 'stats', 'languages', 'locale'
         ));
+    }
+
+    public function sendContact(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string',
+        ]);
+
+        Contact::create($validated);
+
+        return response()->json(['success' => true]);
     }
 
     public function switchLanguage($locale)

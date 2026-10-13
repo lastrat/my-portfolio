@@ -485,7 +485,7 @@
             </div>
 
             <div class="contact-content">
-                <form id="contact-form" class="contact-form reveal" action="{{ route('portfolio') }}" method="POST">
+                <form id="contact-form" class="contact-form reveal" action="{{ route('contact.send') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <input type="text" name="name" placeholder="{{ $translations['your_name'] ?? 'Your Name' }}" required>
