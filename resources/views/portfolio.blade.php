@@ -48,7 +48,14 @@
                 <span>☾</span>
             </button>
             <button class="nav-btn" data-theme-btn="desktop" title="{{ $translations['desktop_mode'] ?? 'Auto (Desktop)' }}">
-                <span>💻</span>
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Écran -->
+                <rect x="2" y="3" width="20" height="13" rx="2"/>
+                <!-- Pied -->
+                <line x1="12" y1="16" x2="12" y2="21"/>
+                <!-- Socle -->
+                <line x1="8" y1="21" x2="16" y2="21"/>
+            </svg>
             </button>
             <button class="nav-btn" onclick="window.location.href='{{ route('lang.switch', ['locale' => app()->getLocale() === 'fr' ? 'en' : 'fr']) }}'">
                 {{ app()->getLocale() === 'fr' ? 'EN' : 'FR' }}
@@ -503,28 +510,44 @@
 
                 <div class="contact-info reveal reveal-delay-1">
                     <div class="contact-info-item">
-                        <div class="contact-info-icon">✉</div>
+                        <div class="contact-info-icon"><svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                        </div>
                         <div class="contact-info-text">
                             <strong>Email</strong>
                             contact@gildasrochinel.dev
                         </div>
                     </div>
                     <div class="contact-info-item">
-                        <div class="contact-info-icon">📍</div>
+                        <div class="contact-info-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+</svg></div>
                         <div class="contact-info-text">
                             <strong>Location</strong>
                             Yaoundé, Cameroun
                         </div>
                     </div>
                     <div class="contact-info-item">
-                        <div class="contact-info-icon">💼</div>
+                        <div class="contact-info-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2.45 14.97c1.07 3.44 3.95 6.09 7.53 6.82M2.05 10.98A9.996 9.996 0 0 1 12 2c5.18 0 9.44 3.94 9.95 8.98M14.01 21.8c3.57-.73 6.44-3.35 7.53-6.78"></path>
+                            </svg>
+                        </div>
                         <div class="contact-info-text">
                             <strong>Status</strong>
                             {{ $translations['available_for_work'] ?? 'Available for work' }}
                         </div>
                     </div>
                     <div class="contact-info-item">
-                        <div class="contact-info-icon">🌐</div>
+                        <div class="contact-info-icon">
+                            <svg xmlns="http://w3.org" viewBox="0 0 512 512" width="32" height="32" fill="currentColor">
+                                <!-- Icône inspirée du symbole de langue -->
+                                <path d="M352 320c-22.6 0-41.2 7-59.1 18.7-48.8-29.2-82.4-78.6-94.6-136.7h47.6c6.6 0 12-5.4 12-12s-5.4-12-12-12H178.5c-3.1-13.6-7.8-26.6-13.9-38.8 33.7-27.1 76-43.2 121.4-43.2 1.3 0 2.6 0 3.9.1 6.6.5 12.3-4.5 12.8-11.2s-4.5-12.3-11.2-12.8c-1.8-.1-3.6-.2-5.5-.2-51.5 0-98.8 19.3-134.4 51.1C94 135.2 64 191.6 64 256c0 106 86 192 192 192 60.1 0 114.1-27.2 150.2-69.5 5.2-6.1 4.5-15.1-1.6-20.3-6.1-5.2-15.1-4.5-20.3 1.6C361.3 392.5 310.8 416 256 416c-88.4 0-160-71.6-160-160 0-51.7 23.9-97.8 61-127.3 12.2 25.4 20.3 52.8 23.9 81.3h-44c-6.6 0-12 5.4-12 12s5.4 12 12 12h38.2c6.1 36.9 25 69.3 53.9 91.1-15.6 15.6-36.9 25.9-60.6 25.9-7.3 0-13.3 6-13.3 13.3 0 7.3 6 13.3 13.3 13.3 32.5 0 61.9-14.8 81.4-38.3 18.5 15.3 42 24.5 67.5 24.5 57.9 0 105.1-47.2 105.1-105.1 0-57.9-47.2-105.1-105.1-105.1z"/>
+                            </svg>
+
+                        </div>
                         <div class="contact-info-text">
                             <strong>Languages</strong>
                             Français (Courant) • English (Intermediate)
