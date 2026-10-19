@@ -213,7 +213,12 @@
                                 </div>
                                 
                                 <h3 class="project-3d-title">{{ $project['title'] }}</h3>
-                                <p class="project-3d-description">{{ $project['description'] }}</p>
+                                <p class="project-3d-description project-description-short">{{ $project['description'] }}</p>
+                                @if(strlen($project['description'] ?? '') > 140)
+                                    <button class="project-description-toggle" data-desc="{{ e($project['description']) }}" onclick="openDescModal(this)">
+                                        {{ $translations['read_more'] ?? 'Read more' }}
+                                    </button>
+                                @endif
                                 
                                 <div class="project-3d-footer">
                                     <div class="project-3d-tech">
@@ -244,6 +249,23 @@
                     <button class="project-3d-nav project-3d-next" id="projectNext" aria-label="Next">
                         <span>→</span>
                     </button>
+                </div>
+            </div>
+
+            <!-- Full description modal -->
+            <div id="desc-modal" class="desc-modal" style="display: none;">
+                <div class="desc-modal-backdrop" onclick="closeDescModal()"></div>
+                <div class="desc-modal-panel">
+                    <button class="desc-modal-close" onclick="closeDescModal()">&times;</button>
+                    <div class="desc-modal-body">
+                        <div class="desc-modal-header">
+                            <span class="desc-modal-label">{{ $translations['description'] ?? 'Description' }}</span>
+                        </div>
+                        <div class="desc-modal-content" id="desc-modal-content"></div>
+                    </div>
+                    <div class="desc-modal-actions">
+                        <button class="desc-modal-btn desc-modal-btn-secondary" onclick="closeDescModal()">{{ $translations['close'] ?? 'Close' }}</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -517,7 +539,7 @@
                         </div>
                         <div class="contact-info-text">
                             <strong>Email</strong>
-                            contact@gildasrochinel.dev
+                            simosimogildas@gmail.com
                         </div>
                     </div>
                     <div class="contact-info-item">

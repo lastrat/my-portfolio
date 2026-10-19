@@ -787,3 +787,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initGlobe();
 });
+
+function openDescModal(btn) {
+    var modal = document.getElementById('desc-modal');
+    var content = document.getElementById('desc-modal-content');
+    content.textContent = btn.dataset.desc || '';
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDescModal() {
+    var modal = document.getElementById('desc-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeDescModal();
+});
