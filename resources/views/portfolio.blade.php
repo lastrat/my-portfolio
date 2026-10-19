@@ -548,7 +548,7 @@
 </svg></div>
                         <div class="contact-info-text">
                             <strong>Location</strong>
-                            Yaoundé, Cameroun
+                            Moncton, Canada
                         </div>
                     </div>
                     <div class="contact-info-item">
@@ -603,6 +603,26 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        function openDescModal(btn) {
+            var modal = document.getElementById('desc-modal');
+            var content = document.getElementById('desc-modal-content');
+            content.textContent = btn.dataset.desc || '';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDescModal() {
+            var modal = document.getElementById('desc-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        window.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeDescModal();
+        });
+    </script>
     
     @yield('scripts')
 </body>
