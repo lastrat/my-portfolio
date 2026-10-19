@@ -38,3 +38,6 @@ yarn-error.log
 /.php-cs-fixer.cache
 /.sonar
 /.scrutinizer.yml
+
+my_portfolio.zip
+.kilo/
