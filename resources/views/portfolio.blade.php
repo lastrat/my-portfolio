@@ -213,9 +213,13 @@
                                 </div>
                                 
                                 <h3 class="project-3d-title">{{ $project['title'] }}</h3>
-                                <p class="project-3d-description project-description-short">{{ $project['description'] }}</p>
-                                @if(strlen($project['description'] ?? '') > 140)
-                                    <button class="project-description-toggle" data-desc="{{ e($project['description']) }}" onclick="openDescModal(this)">
+                                @php
+                                    $desc = html_entity_decode($project['description'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                                @endphp
+                                <p class="project-3d-description project-description-short">{{ $desc }}</p>
+                                <span class="desc-full" style="display:none">{{ $desc }}</span>
+                                @if(strlen($desc) > 140)
+                                    <button class="project-description-toggle" onclick="openDescModal(this)">
                                         {{ $translations['read_more'] ?? 'Read more' }}
                                     </button>
                                 @endif
@@ -608,7 +612,8 @@
         function openDescModal(btn) {
             var modal = document.getElementById('desc-modal');
             var content = document.getElementById('desc-modal-content');
-            content.textContent = btn.dataset.desc || '';
+            var full = btn.closest('.project-3d-card').querySelector('.desc-full');
+            content.textContent = full ? full.textContent : '';
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
