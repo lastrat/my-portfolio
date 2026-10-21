@@ -832,20 +832,14 @@ document.addEventListener('DOMContentLoaded', () => {
     initGlobe();
 });
 
-function openDescModal(btn) {
-    var modal = document.getElementById('desc-modal');
-    var content = document.getElementById('desc-modal-content');
-    content.textContent = btn.dataset.desc || '';
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+// ===== SKILL CARD SPOTLIGHT =====
+const skillCards = document.querySelectorAll('.skill-item');
+if (skillCards.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    skillCards.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--sx', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+            card.style.setProperty('--sy', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+        });
+    });
 }
-
-function closeDescModal() {
-    var modal = document.getElementById('desc-modal');
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-}
-
-window.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeDescModal();
-});

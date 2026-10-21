@@ -353,26 +353,35 @@
 
             <div class="skills-grid">
                 @foreach($skills as $skill)
-                <div class="skill-item reveal">
-                    <div class="skill-icon">◆</div>
-                    <div class="skill-body">
-                        <h3 class="skill-name">{{ $skill['title'] }}</h3>
+                    @php
+                        $skillTools = array_values(array_filter(array_map('trim', explode(',', $skill['tools'] ?? ''))));
+                    @endphp
+                    <div class="skill-item reveal" style="transition-delay: {{ $loop->index * 0.08 }}s;">
+                        <div class="skill-top">
+                            <div class="skill-icon">◆</div>
+                            @if(count($skillTools) > 0)
+                                <span class="skill-count">
+                                    {{ count($skillTools) }} {{ count($skillTools) > 1 ? 'tools' : 'tool' }}
+                                </span>
+                            @endif
+                        </div>
 
-                        @if(!empty($skill['description']))
-                            <p class="skill-text">{{ $skill['description'] }}</p>
-                        @endif
+                        <div class="skill-body">
+                            <h3 class="skill-name">{{ $skill['title'] }}</h3>
 
-                        @if(!empty($skill['tools']))
+                            @if(!empty($skill['description']))
+                                <p class="skill-text">{{ $skill['description'] }}</p>
+                            @endif
+                        </div>
+
+                        @if(count($skillTools) > 0)
                             <div class="skill-tools">
-                                @foreach(explode(',', $skill['tools']) as $tool)
-                                    @if(trim($tool) !== '')
-                                        <span class="skill-tool">{{ trim($tool) }}</span>
-                                    @endif
+                                @foreach($skillTools as $tool)
+                                    <span class="skill-tool">{{ $tool }}</span>
                                 @endforeach
                             </div>
                         @endif
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>
