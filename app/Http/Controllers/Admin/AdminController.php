@@ -297,6 +297,7 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:100',
             'category' => 'required|string|max:255',
             'icon' => 'nullable|string',
         ]);
@@ -315,6 +316,7 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:100',
             'category' => 'required|string|max:255',
             'icon' => 'nullable|string',
         ]);
