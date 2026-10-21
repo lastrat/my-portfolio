@@ -98,6 +98,7 @@ class AdminController extends Controller
 
         $validated['tech'] = explode(',', $validated['tech']);
         $validated['tech'] = json_encode(array_map('trim', $validated['tech']));
+        $validated['description'] = $validated['description_fr'];
 
         Project::create($validated);
 
@@ -136,6 +137,7 @@ class AdminController extends Controller
 
         $validated['tech'] = explode(',', $validated['tech']);
         $validated['tech'] = json_encode(array_map('trim', $validated['tech']));
+        $validated['description'] = $validated['description_fr'];
 
         $project->update($validated);
 
@@ -172,6 +174,9 @@ class AdminController extends Controller
             'description_en' => 'nullable|string',
         ]);
 
+        $validated['title'] = $validated['title_fr'];
+        $validated['description'] = $validated['description_fr'];
+
         Experience::create($validated);
 
         return redirect()->route('admin.experiences')->with('success', 'Experience created successfully.');
@@ -192,6 +197,9 @@ class AdminController extends Controller
             'description_fr' => 'nullable|string',
             'description_en' => 'nullable|string',
         ]);
+
+        $validated['title'] = $validated['title_fr'];
+        $validated['description'] = $validated['description_fr'];
 
         $experience->update($validated);
 
@@ -231,6 +239,9 @@ class AdminController extends Controller
             'lng' => 'nullable|numeric',
         ]);
 
+        $validated['title'] = $validated['title_fr'];
+        $validated['description'] = $validated['description_fr'];
+
         Education::create($validated);
 
         return redirect()->route('admin.education')->with('success', 'Education created successfully.');
@@ -254,6 +265,9 @@ class AdminController extends Controller
             'lat' => 'nullable|numeric',
             'lng' => 'nullable|numeric',
         ]);
+
+        $validated['title'] = $validated['title_fr'];
+        $validated['description'] = $validated['description_fr'];
 
         $education->update($validated);
 
