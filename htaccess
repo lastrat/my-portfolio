@@ -1,7 +1,0 @@
-RewriteEngine On
-
-# Serve Laravel public storage files without a symlink
-RewriteRule ^storage/(.*)$ /storage/app/public/$1 [END]
-
-# Route the rest of the application through Laravel's public directory
-RewriteRule (.*) /public/$1 [L]
