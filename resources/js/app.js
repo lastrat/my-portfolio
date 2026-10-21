@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initialize theme
-    const savedTheme = localStorage.getItem('theme') || 'desktop';
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(savedTheme);
 
     // Listen for system theme changes

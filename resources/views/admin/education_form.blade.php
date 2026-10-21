@@ -26,8 +26,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Title</label>
-                    <input type="text" name="title" class="form-input" value="{{ old('title', $education->title) }}" required>
+                    <label class="form-label">Title (FR)</label>
+                    <input type="text" name="title_fr" class="form-input" value="{{ old('title_fr', $education->title_fr ?? $education->title) }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Title (EN)</label>
+                    <input type="text" name="title_en" class="form-input" value="{{ old('title_en', $education->title_en ?? $education->title) }}" required>
                 </div>
 
                 <div class="form-group">
@@ -47,8 +52,13 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea name="description" class="form-input" rows="6">{{ old('description', $education->description) }}</textarea>
+                <label class="form-label">Description (FR)</label>
+                <textarea name="description_fr" class="form-input" rows="4">{{ old('description_fr', $education->description_fr ?? $education->description) }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description (EN)</label>
+                <textarea name="description_en" class="form-input" rows="4">{{ old('description_en', $education->description_en ?? $education->description) }}</textarea>
             </div>
 
             <div style="display: flex; gap: 12px;">

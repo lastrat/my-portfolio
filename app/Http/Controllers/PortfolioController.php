@@ -23,7 +23,7 @@ class PortfolioController extends Controller
                 'id' => $project->id,
                 'slug' => $project->slug,
                 'title' => $project->title,
-                'description' => $project->description,
+                'description' => $locale === 'fr' ? ($project->description_fr ?? $project->description) : ($project->description_en ?? $project->description),
                 'role' => $project->role,
                 'year' => $project->year,
                 'client' => $project->client,
@@ -36,18 +36,18 @@ class PortfolioController extends Controller
         $experience = Experience::all()->map(function ($item) use ($locale) {
             return [
                 'year' => $item->year,
-                'title' => $item->title,
+                'title' => $locale === 'fr' ? ($item->title_fr ?? $item->title) : ($item->title_en ?? $item->title),
                 'company' => $item->company,
-                'description' => $item->description,
+                'description' => $locale === 'fr' ? ($item->description_fr ?? $item->description) : ($item->description_en ?? $item->description),
             ];
         })->toArray();
 
         $education = Education::all()->map(function ($item) use ($locale) {
             return [
                 'year' => $item->year,
-                'title' => $item->title,
+                'title' => $locale === 'fr' ? ($item->title_fr ?? $item->title) : ($item->title_en ?? $item->title),
                 'company' => $item->company,
-                'description' => $item->description,
+                'description' => $locale === 'fr' ? ($item->description_fr ?? $item->description) : ($item->description_en ?? $item->description),
                 'location' => $item->location,
                 'lat' => $item->lat,
                 'lng' => $item->lng,

@@ -80,7 +80,8 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description_fr' => 'required|string',
+            'description_en' => 'required|string',
             'role' => 'required|string|max:255',
             'year' => 'required|string|max:20',
             'client' => 'required|string|max:255',
@@ -111,7 +112,8 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description_fr' => 'required|string',
+            'description_en' => 'required|string',
             'role' => 'required|string|max:255',
             'year' => 'required|string|max:20',
             'client' => 'required|string|max:255',
@@ -161,9 +163,11 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'year' => 'required|string|max:50',
-            'title' => 'required|string|max:255',
+            'title_fr' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
             'company' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description_fr' => 'nullable|string',
+            'description_en' => 'nullable|string',
         ]);
 
         Experience::create($validated);
@@ -180,9 +184,11 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'year' => 'required|string|max:50',
-            'title' => 'required|string|max:255',
+            'title_fr' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
             'company' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description_fr' => 'nullable|string',
+            'description_en' => 'nullable|string',
         ]);
 
         $experience->update($validated);
@@ -213,9 +219,11 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'year' => 'required|string|max:50',
-            'title' => 'required|string|max:255',
+            'title_fr' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
             'company' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description_fr' => 'nullable|string',
+            'description_en' => 'nullable|string',
             'location' => 'nullable|string|max:255',
             'lat' => 'nullable|numeric',
             'lng' => 'nullable|numeric',
@@ -235,9 +243,11 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'year' => 'required|string|max:50',
-            'title' => 'required|string|max:255',
+            'title_fr' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
             'company' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description_fr' => 'nullable|string',
+            'description_en' => 'nullable|string',
             'location' => 'nullable|string|max:255',
             'lat' => 'nullable|numeric',
             'lng' => 'nullable|numeric',

@@ -27,13 +27,23 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Title</label>
-                <input type="text" name="title" class="form-input" value="{{ old('title', $experience->title) }}" required>
+                <label class="form-label">Title (FR)</label>
+                <input type="text" name="title_fr" class="form-input" value="{{ old('title_fr', $experience->title_fr ?? $experience->title) }}" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea name="description" class="form-input" rows="6">{{ old('description', $experience->description) }}</textarea>
+                <label class="form-label">Title (EN)</label>
+                <input type="text" name="title_en" class="form-input" value="{{ old('title_en', $experience->title_en ?? $experience->title) }}" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description (FR)</label>
+                <textarea name="description_fr" class="form-input" rows="4">{{ old('description_fr', $experience->description_fr ?? $experience->description) }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description (EN)</label>
+                <textarea name="description_en" class="form-input" rows="4">{{ old('description_en', $experience->description_en ?? $experience->description) }}</textarea>
             </div>
 
             <div style="display: flex; gap: 12px;">

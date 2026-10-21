@@ -60,8 +60,13 @@
                 </div>
 
             <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea name="description" class="form-input" rows="6" required>{{ old('description', $project->description) }}</textarea>
+                <label class="form-label">Description (FR)</label>
+                <textarea name="description_fr" class="form-input" rows="4" required>{{ old('description_fr', $project->description_fr ?? $project->description) }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description (EN)</label>
+                <textarea name="description_en" class="form-input" rows="4" required>{{ old('description_en', $project->description_en ?? $project->description) }}</textarea>
             </div>
 
             <div style="display: flex; gap: 12px;">
