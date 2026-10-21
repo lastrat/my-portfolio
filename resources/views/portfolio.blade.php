@@ -204,80 +204,71 @@
                 </div>
             @endif
 
-            <div class="projects-3d-wrapper">
-                <div class="projects-3d-carousel" id="projectsCarousel">
-                    @foreach($projects as $project)
-                    <div class="project-3d-card reveal" data-index="{{ $loop->index }}" data-category="{{ e($project['category'] ?? '') }}">
-                        <div class="project-3d-card-inner">
-                            <div class="project-3d-card-bg"></div>
-                            <div class="project-3d-card-glow"></div>
-                            
-                            <div class="project-3d-image">
-                                <img src="{{ $project['image'] ?? 'https://via.placeholder.com/800x500' }}"
-                                     alt="{{ $project['title'] }}" 
-                                     loading="lazy"
-                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div class="project-image-fallback" style="display: none;">
-                                    {{ substr($project['title'], 0, 2) }}
-                                </div>
-                                <div class="project-3d-overlay"></div>
+            <div class="projects-grid" id="projectsGrid">
+                @foreach($projects as $project)
+                    @php
+                        $desc = html_entity_decode($project['description'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                        $projectTech = array_slice($project['tech'] ?? [], 0, 4);
+                    @endphp
+                    <article class="project-card reveal" data-category="{{ e($project['category'] ?? '') }}">
+                        <div class="project-image">
+                            <img src="{{ $project['image'] ?? '' }}"
+                                 alt="{{ $project['title'] }}"
+                                 loading="lazy"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="project-image-fallback" style="display: none;">
+                                {{ substr($project['title'], 0, 2) }}
+                            </div>
+                            <div class="project-image-overlay"></div>
+                            @if(!empty($project['category']))
+                                <span class="project-card-category">{{ $project['category'] }}</span>
+                            @endif
+                        </div>
+
+                        <div class="project-content">
+                            <div class="project-meta">
+                                <span>{{ $project['year'] }}</span>
+                                <span>{{ $project['role'] }}</span>
                             </div>
 
-                            <div class="project-3d-content">
-                                <div class="project-3d-header">
-                                    <span class="project-3d-year">{{ $project['year'] }}</span>
-                                    <span class="project-3d-role">{{ $project['role'] }}</span>
-                                </div>
+                            <h3 class="project-title">{{ $project['title'] }}</h3>
 
-                                @if(!empty($project['category']))
-                                    <div class="project-3d-category-row">
-                                        <span class="project-3d-category">{{ $project['category'] }}</span>
-                                    </div>
-                                @endif
-                                
-                                <h3 class="project-3d-title">{{ $project['title'] }}</h3>
-                                @php
-                                    $desc = html_entity_decode($project['description'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
-                                @endphp
-                                <p class="project-3d-description project-description-short">{{ $desc }}</p>
-                                <span class="desc-full" style="display:none">{{ $desc }}</span>
-                                @if(strlen($desc) > 140)
-                                    <button class="project-description-toggle" onclick="openDescModal(this)">
-                                        {{ $translations['read_more'] ?? 'Read more' }}
-                                    </button>
-                                @endif
-                                
-                                <div class="project-3d-footer">
-                                    <div class="project-3d-tech">
-                                        @foreach($project['tech'] as $tech)
-                                        <span class="project-3d-tech-tag">{{ $tech }}</span>
-                                        @endforeach
-                                    </div>
-                                    <a href="{{ $project['link'] ?? '#' }}" class="project-3d-link" @if(!empty($project['link'])) target="_blank" rel="noopener" @endif>
-                                        <span class="project-3d-link-text">{{ $translations['view_project'] ?? 'View Project' }}</span>
-                                        <span class="project-3d-link-arrow">→</span>
-                                    </a>
+                            <p class="project-description">{{ $desc }}</p>
+                            <span class="desc-full" style="display:none">{{ $desc }}</span>
+                            @if(strlen($desc) > 120)
+                                <button class="project-description-toggle" onclick="openDescModal(this)">
+                                    {{ $translations['read_more'] ?? 'Read more' }}
+                                </button>
+                            @endif
+
+                            <div class="project-footer">
+                                <div class="project-tech">
+                                    @foreach($projectTech as $tech)
+                                        <span>{{ $tech }}</span>
+                                    @endforeach
                                 </div>
+                                @if(!empty($project['link']))
+                                    <a href="{{ $project['link'] }}" class="project-link" target="_blank" rel="noopener">
+                                        <span>{{ $translations['view_project'] ?? 'View' }}</span>
+                                        <span class="project-link-arrow">→</span>
+                                    </a>
+                                @endif
                             </div>
                         </div>
-                    </div>
-                    @endforeach
-                </div>
-
-                <div class="projects-3d-controls">
-                    <button class="project-3d-nav project-3d-prev" id="projectPrev" aria-label="Previous">
-                        <span>←</span>
-                    </button>
-                    <div class="project-3d-counter">
-                        <span class="project-3d-current">01</span>
-                        <span class="project-3d-separator">/</span>
-                        <span class="project-3d-total">{{ str_pad(count($projects), 2, '0', STR_PAD_LEFT) }}</span>
-                    </div>
-                    <button class="project-3d-nav project-3d-next" id="projectNext" aria-label="Next">
-                        <span>→</span>
-                    </button>
-                </div>
+                    </article>
+                @endforeach
             </div>
+
+            @if(count($projects) > 6)
+                <div class="projects-more">
+                    <button type="button" class="projects-more-btn" id="showMoreProjects" data-limit="6"
+                            data-label-more="{{ $translations['show_more'] ?? 'Show more' }}"
+                            data-label-less="{{ $translations['show_less'] ?? 'Show less' }}">
+                        <span class="projects-more-label">{{ $translations['show_more'] ?? 'Show more' }}</span>
+                        <span class="projects-more-count"></span>
+                    </button>
+                </div>
+            @endif
 
             <!-- Full description modal -->
             <div id="desc-modal" class="desc-modal" style="display: none;">
@@ -660,7 +651,7 @@
         function openDescModal(btn) {
             var modal = document.getElementById('desc-modal');
             var content = document.getElementById('desc-modal-content');
-            var full = btn.closest('.project-3d-card').querySelector('.desc-full');
+            var full = btn.closest('.project-card').querySelector('.desc-full');
             content.textContent = full ? full.textContent : '';
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';

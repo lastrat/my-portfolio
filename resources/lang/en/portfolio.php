@@ -17,6 +17,8 @@ return [
     "view_project" => "View project",
     "read_more" => "Read more",
     "read_less" => "Read less",
+    "show_more" => "Show more projects",
+    "show_less" => "Show less",
     "close" => "Close",
     "tech_stack" => "Tech Stack",
     "tech_stack_desc" => "Languages, frameworks, and tools I use to build robust applications.",

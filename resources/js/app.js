@@ -418,157 +418,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
     counters.forEach(counter => counterObserver.observe(counter));
 
-    // ===== 3D PROJECTS CAROUSEL =====
-    const carousel = document.getElementById('projectsCarousel');
-    if (carousel) {
-        const allCards = Array.from(carousel.querySelectorAll('.project-3d-card'));
-        const prevBtn = document.getElementById('projectPrev');
-        const nextBtn = document.getElementById('projectNext');
-        const currentCounter = document.querySelector('.project-3d-current');
-        const totalCounter = document.querySelector('.project-3d-total');
+    // ===== PROJECTS GRID =====
+    const projectsGrid = document.getElementById('projectsGrid');
+    if (projectsGrid) {
+        const allCards = Array.from(projectsGrid.querySelectorAll('.project-card'));
         const filterButtons = Array.from(document.querySelectorAll('#projectFilters .project-filter-btn'));
-        let visibleCards = allCards.slice();
-        let currentIndex = 0;
+        const moreBtn = document.getElementById('showMoreProjects');
+        const moreLabel = moreBtn ? moreBtn.querySelector('.projects-more-label') : null;
+        const moreCount = moreBtn ? moreBtn.querySelector('.projects-more-count') : null;
+        const limit = moreBtn ? parseInt(moreBtn.dataset.limit, 10) || 6 : 6;
 
-        function getVisibleCards() {
-            return allCards.filter((card) => card.style.display !== 'none');
+        let activeFilter = 'all';
+        let expanded = false;
+
+        function matchingCards() {
+            return allCards.filter((card) => {
+                const category = card.dataset.category || '';
+                return activeFilter === 'all' || category === activeFilter;
+            });
         }
 
-        function updateCarousel() {
-            visibleCards = getVisibleCards();
-            const total = visibleCards.length;
+        function applyVisibility() {
+            const matches = matchingCards();
+            let shown = 0;
 
-            if (!total) return;
-
-            if (currentIndex > total - 1) currentIndex = total - 1;
-            if (currentIndex < 0) currentIndex = 0;
-
-            visibleCards.forEach((card, index) => {
-                card.classList.remove('active', 'prev', 'next');
-
-                if (index === currentIndex) {
-                    card.classList.add('active');
-                } else if (index === currentIndex - 1) {
-                    card.classList.add('prev');
-                } else if (index === currentIndex + 1) {
-                    card.classList.add('next');
-                }
+            matches.forEach((card) => {
+                const isVisible = expanded || shown < limit;
+                card.style.display = isVisible ? '' : 'none';
+                if (isVisible) shown++;
             });
 
-            if (currentCounter) {
-                currentCounter.textContent = String(currentIndex + 1).padStart(2, '0');
-            }
-
-            if (totalCounter) {
-                totalCounter.textContent = String(total).padStart(2, '0');
-            }
-
-            const firstCard = visibleCards[0];
-            const cardWidth = firstCard.offsetWidth + 40;
-            const offset = -currentIndex * cardWidth + (carousel.parentElement.offsetWidth - firstCard.offsetWidth) / 2;
-            carousel.style.transform = `translateX(${offset}px)`;
-        }
-
-        function nextSlide() {
-            const total = visibleCards.length;
-            if (!total) return;
-            currentIndex = (currentIndex + 1) % total;
-            updateCarousel();
-        }
-
-        function prevSlide() {
-            const total = visibleCards.length;
-            if (!total) return;
-            currentIndex = (currentIndex - 1 + total) % total;
-            updateCarousel();
-        }
-
-        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-
-        carousel.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-                e.preventDefault();
-                if (e.deltaX > 30) nextSlide();
-                else if (e.deltaX < -30) prevSlide();
-            } else if (e.deltaY > 30) {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.deltaY < -30) {
-                e.preventDefault();
-                prevSlide();
-            }
-        }, { passive: false });
-
-        let touchStartX = 0;
-        carousel.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        carousel.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) nextSlide();
-                else prevSlide();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            else if (e.key === 'ArrowLeft') prevSlide();
-        });
-
-        allCards.forEach((card) => {
-            card.addEventListener('click', () => {
-                const index = visibleCards.indexOf(card);
-                if (index !== -1 && index !== currentIndex) {
-                    currentIndex = index;
-                    updateCarousel();
-                }
+            allCards.forEach((card) => {
+                if (!matches.includes(card)) card.style.display = 'none';
             });
-        });
 
-        // Category filtering
+            if (moreBtn) {
+                const hidden = Math.max(matches.length - limit, 0);
+                if (hidden === 0 && !expanded) {
+                    moreBtn.style.display = 'none';
+                } else {
+                    moreBtn.style.display = '';
+                    if (moreLabel) {
+                        moreLabel.textContent = expanded
+                            ? (moreBtn.dataset.labelLess || 'Show less')
+                            : (moreBtn.dataset.labelMore || 'Show more');
+                    }
+                    if (moreCount) {
+                        moreCount.textContent = expanded ? '' : String(hidden);
+                        moreCount.style.display = expanded ? 'none' : '';
+                    }
+                }
+            }
+        }
+
+        if (moreBtn) {
+            moreBtn.addEventListener('click', () => {
+                expanded = !expanded;
+                applyVisibility();
+            });
+        }
+
         filterButtons.forEach((btn) => {
             btn.addEventListener('click', () => {
                 filterButtons.forEach((b) => b.classList.remove('is-active'));
                 btn.classList.add('is-active');
-
-                const filter = btn.dataset.filter;
-
-                allCards.forEach((card) => {
-                    const category = card.dataset.category || '';
-                    const matches = filter === 'all' || category === filter;
-                    card.style.display = matches ? '' : 'none';
-                    if (!matches) card.classList.remove('active', 'prev', 'next');
-                });
-
-                currentIndex = 0;
-                updateCarousel();
+                activeFilter = btn.dataset.filter;
+                expanded = false;
+                applyVisibility();
             });
         });
 
-        allCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / centerY * -8;
-                const rotateY = (x - centerX) / centerX * 8;
-                
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
-
-        window.addEventListener('resize', updateCarousel);
-        updateCarousel();
+        applyVisibility();
     }
 
     // ===== GLOBE INTERACTION =====

@@ -17,6 +17,8 @@ return [
     "view_project" => "Voir le projet",
     "read_more" => "Voir la suite",
     "read_less" => "Voir moins",
+    "show_more" => "Voir plus de projets",
+    "show_less" => "Réduire",
     "close" => "Fermer",
     "tech_stack" => "Stack Technique",
     "tech_stack_desc" => "Les langages, frameworks et outils que j'utilise pour concevoir des applications robustes.",
