@@ -37,6 +37,13 @@ Route::middleware(['admin'])->group(function () {
     Route::put('/tech/{tech}', [AdminController::class, 'updateTech'])->name('tech.update');
     Route::delete('/tech/{tech}', [AdminController::class, 'destroyTech'])->name('tech.destroy');
 
+    Route::get('/skills', [AdminController::class, 'skills'])->name('skills');
+    Route::get('/skills/create', [AdminController::class, 'createSkill'])->name('skills.create');
+    Route::post('/skills', [AdminController::class, 'storeSkill'])->name('skills.store');
+    Route::get('/skills/{skill}/edit', [AdminController::class, 'editSkill'])->name('skills.edit');
+    Route::put('/skills/{skill}', [AdminController::class, 'updateSkill'])->name('skills.update');
+    Route::delete('/skills/{skill}', [AdminController::class, 'destroySkill'])->name('skills.destroy');
+
     Route::get('/contacts', [AdminController::class, 'contacts'])->name('contacts');
     Route::patch('/contacts/{contact}/read', [AdminController::class, 'markContactAsRead'])->name('contacts.read');
     Route::delete('/contacts/{contact}', [AdminController::class, 'destroyContact'])->name('contacts.destroy');

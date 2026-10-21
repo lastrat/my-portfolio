@@ -756,6 +756,10 @@
                 <span class="admin-nav-icon">⚡</span>
                 Tech Stack
             </a>
+            <a href="{{ route('admin.skills') }}" class="admin-nav-item {{ request()->routeIs('admin.skills*') ? 'active' : '' }}">
+                <span class="admin-nav-icon">◆</span>
+                Skills
+            </a>
             <a href="{{ route('admin.contacts') }}" class="admin-nav-item {{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
                 <span class="admin-nav-icon">✉️</span>
                 Contacts

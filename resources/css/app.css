@@ -1637,6 +1637,39 @@ section {
     margin: 0;
 }
 
+.skill-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.skill-name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.skill-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skill-tool {
+    font-family: var(--font-code);
+    font-size: 10px;
+    padding: 4px 10px;
+    background: rgba(2, 194, 2, 0.08);
+    border: 1px solid rgba(2, 194, 2, 0.15);
+    color: var(--accent-green);
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
 /* Experiments */
 .experiments-grid {
     display: grid;

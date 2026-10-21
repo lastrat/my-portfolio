@@ -119,7 +119,7 @@
                             <div class="stat-label">{{ $translations['years_experience'] ?? 'Years Experience' }}</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">10+</div>
+                            <div class="stat-value">30+</div>
                             <div class="stat-label">{{ $translations['projects_completed'] ?? 'Projects' }}</div>
                         </div>
                         <div class="stat-item">
@@ -355,7 +355,23 @@
                 @foreach($skills as $skill)
                 <div class="skill-item reveal">
                     <div class="skill-icon">◆</div>
-                    <p class="skill-text">{{ $skill }}</p>
+                    <div class="skill-body">
+                        <h3 class="skill-name">{{ $skill['title'] }}</h3>
+
+                        @if(!empty($skill['description']))
+                            <p class="skill-text">{{ $skill['description'] }}</p>
+                        @endif
+
+                        @if(!empty($skill['tools']))
+                            <div class="skill-tools">
+                                @foreach(explode(',', $skill['tools']) as $tool)
+                                    @if(trim($tool) !== '')
+                                        <span class="skill-tool">{{ trim($tool) }}</span>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
                 @endforeach
             </div>
@@ -458,7 +474,7 @@
                             <div class="about-stat-label">{{ $translations['years_experience'] ?? 'Years Experience' }}</div>
                         </div>
                         <div class="about-stat">
-                            <div class="about-stat-value">10+</div>
+                            <div class="about-stat-value">30+</div>
                             <div class="about-stat-label">{{ $translations['projects_completed'] ?? 'Projects' }}</div>
                         </div>
                         <div class="about-stat">
@@ -575,7 +591,7 @@
 </svg></div>
                         <div class="contact-info-text">
                             <strong>Location</strong>
-                            Moncton, Canada
+                            Moncton, NB, Canada
                         </div>
                     </div>
                     <div class="contact-info-item">

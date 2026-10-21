@@ -338,6 +338,70 @@ class AdminController extends Controller
         return view('admin.contacts', compact('contacts'));
     }
 
+    // Skills CRUD
+    public function skills()
+    {
+        $skills = Skill::orderBy('id')->paginate(20);
+        return view('admin.skills', compact('skills'));
+    }
+
+    public function createSkill()
+    {
+        return view('admin.skills_form', ['skill' => new Skill()]);
+    }
+
+    public function storeSkill(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'title_fr' => 'nullable|string|max:255',
+            'title_en' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'description_fr' => 'nullable|string',
+            'description_en' => 'nullable|string',
+        ]);
+
+        $validated['title_fr'] = $validated['title_fr'] ?: $validated['title'];
+        $validated['title_en'] = $validated['title_en'] ?: $validated['title'];
+        $validated['description'] = $validated['description_fr'];
+
+        Skill::create($validated);
+
+        return redirect()->route('admin.skills')->with('success', 'Skill created successfully.');
+    }
+
+    public function editSkill(Skill $skill)
+    {
+        return view('admin.skills_form', compact('skill'));
+    }
+
+    public function updateSkill(Request $request, Skill $skill)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'title_fr' => 'nullable|string|max:255',
+            'title_en' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'description_fr' => 'nullable|string',
+            'description_en' => 'nullable|string',
+        ]);
+
+        $validated['title_fr'] = $validated['title_fr'] ?: $validated['title'];
+        $validated['title_en'] = $validated['title_en'] ?: $validated['title'];
+        $validated['description'] = $validated['description_fr'];
+
+        $skill->update($validated);
+
+        return redirect()->route('admin.skills')->with('success', 'Skill updated successfully.');
+    }
+
+    public function destroySkill(Skill $skill)
+    {
+        $skill->delete();
+
+        return redirect()->route('admin.skills')->with('success', 'Skill deleted successfully.');
+    }
+
     public function markContactAsRead(Contact $contact)
     {
         if (! $contact->is_read) {

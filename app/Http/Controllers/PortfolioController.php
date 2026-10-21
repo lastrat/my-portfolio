@@ -64,7 +64,11 @@ class PortfolioController extends Controller
         })->toArray();
 
         $skills = Skill::all()->map(function ($skill) use ($locale) {
-            return $skill->title . ' : ' . $skill->company;
+            return [
+                'title' => $locale === 'fr' ? ($skill->title_fr ?? $skill->title) : ($skill->title_en ?? $skill->title),
+                'tools' => $skill->company,
+                'description' => $locale === 'fr' ? ($skill->description_fr ?? $skill->description) : ($skill->description_en ?? $skill->description),
+            ];
         })->toArray();
 
         $stats = [
