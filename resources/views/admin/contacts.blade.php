@@ -28,7 +28,7 @@
                                 {{ Str::limit($contact->message, 60) }}
                             </td>
                             <td>{{ $contact->created_at->format('M d, Y') }}</td>
-                            <td>
+                            <td data-contact-status="{{ $contact->id }}">
                                 @if($contact->is_read)
                                     <span class="admin-badge-success">Read</span>
                                 @else
@@ -42,6 +42,7 @@
                                    data-email="{{ e($contact->email) }}"
                                    data-msg="{{ e($contact->message) }}"
                                    data-date="{{ $contact->created_at->format('M d, Y \\H\\i:s') }}"
+                                   data-read-url="{{ route('admin.contacts.read', $contact->id) }}"
                                    onclick="event.preventDefault(); openContact(this);">
                                     View
                                 </a>
@@ -304,6 +305,31 @@
 
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+
+            markAsRead(link);
+        }
+
+        function markAsRead(link) {
+            var id = link.dataset.id;
+            var url = link.dataset.readUrl;
+            if (!id || !url) return;
+
+            var cell = document.querySelector('[data-contact-status="' + id + '"]');
+            if (!cell || cell.querySelector('.admin-badge-success')) return;
+
+            fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            }).then(function (response) {
+                if (!response.ok) return;
+                cell.innerHTML = '<span class="admin-badge-success">Read</span>';
+            }).catch(function () {
+                // keep the badge unchanged if the request fails
+            });
         }
 
         function closeContact() {

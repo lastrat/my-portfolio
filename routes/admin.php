@@ -38,6 +38,7 @@ Route::middleware(['admin'])->group(function () {
     Route::delete('/tech/{tech}', [AdminController::class, 'destroyTech'])->name('tech.destroy');
 
     Route::get('/contacts', [AdminController::class, 'contacts'])->name('contacts');
+    Route::patch('/contacts/{contact}/read', [AdminController::class, 'markContactAsRead'])->name('contacts.read');
     Route::delete('/contacts/{contact}', [AdminController::class, 'destroyContact'])->name('contacts.destroy');
 });
 

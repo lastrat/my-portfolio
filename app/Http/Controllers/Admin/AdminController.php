@@ -324,6 +324,19 @@ class AdminController extends Controller
         return view('admin.contacts', compact('contacts'));
     }
 
+    public function markContactAsRead(Contact $contact)
+    {
+        if (! $contact->is_read) {
+            $contact->update(['is_read' => true]);
+        }
+
+        if (request()->expectsJson()) {
+            return response()->json(['success' => true]);
+        }
+
+        return redirect()->route('admin.contacts')->with('success', 'Message marked as read.');
+    }
+
     public function destroyContact(Contact $contact)
     {
         $contact->delete();
