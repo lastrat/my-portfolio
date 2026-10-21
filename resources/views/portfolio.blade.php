@@ -187,10 +187,27 @@
                 <p class="section-description">{{ $translations['selected_work_desc'] ?? 'A selection of projects that define my approach.' }}</p>
             </div>
 
+            @php
+                $projectCategories = collect($projects)->pluck('category')->filter()->countBy()->sortKeys();
+            @endphp
+
+            @if($projectCategories->isNotEmpty())
+                <div class="project-filters" id="projectFilters">
+                    <button type="button" class="project-filter-btn is-active" data-filter="all">
+                        All <span class="project-filter-count">{{ count($projects) }}</span>
+                    </button>
+                    @foreach($projectCategories as $catName => $catCount)
+                        <button type="button" class="project-filter-btn" data-filter="{{ e($catName) }}">
+                            {{ $catName }} <span class="project-filter-count">{{ $catCount }}</span>
+                        </button>
+                    @endforeach
+                </div>
+            @endif
+
             <div class="projects-3d-wrapper">
                 <div class="projects-3d-carousel" id="projectsCarousel">
                     @foreach($projects as $project)
-                    <div class="project-3d-card reveal" data-index="{{ $loop->index }}">
+                    <div class="project-3d-card reveal" data-index="{{ $loop->index }}" data-category="{{ e($project['category'] ?? '') }}">
                         <div class="project-3d-card-inner">
                             <div class="project-3d-card-bg"></div>
                             <div class="project-3d-card-glow"></div>
@@ -211,6 +228,12 @@
                                     <span class="project-3d-year">{{ $project['year'] }}</span>
                                     <span class="project-3d-role">{{ $project['role'] }}</span>
                                 </div>
+
+                                @if(!empty($project['category']))
+                                    <div class="project-3d-category-row">
+                                        <span class="project-3d-category">{{ $project['category'] }}</span>
+                                    </div>
+                                @endif
                                 
                                 <h3 class="project-3d-title">{{ $project['title'] }}</h3>
                                 @php

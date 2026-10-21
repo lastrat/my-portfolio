@@ -421,17 +421,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== 3D PROJECTS CAROUSEL =====
     const carousel = document.getElementById('projectsCarousel');
     if (carousel) {
-        const cards = carousel.querySelectorAll('.project-3d-card');
+        const allCards = Array.from(carousel.querySelectorAll('.project-3d-card'));
         const prevBtn = document.getElementById('projectPrev');
         const nextBtn = document.getElementById('projectNext');
         const currentCounter = document.querySelector('.project-3d-current');
+        const totalCounter = document.querySelector('.project-3d-total');
+        const filterButtons = Array.from(document.querySelectorAll('#projectFilters .project-filter-btn'));
+        let visibleCards = allCards.slice();
         let currentIndex = 0;
-        const totalCards = cards.length;
+
+        function getVisibleCards() {
+            return allCards.filter((card) => card.style.display !== 'none');
+        }
 
         function updateCarousel() {
-            cards.forEach((card, index) => {
+            visibleCards = getVisibleCards();
+            const total = visibleCards.length;
+
+            if (!total) return;
+
+            if (currentIndex > total - 1) currentIndex = total - 1;
+            if (currentIndex < 0) currentIndex = 0;
+
+            visibleCards.forEach((card, index) => {
                 card.classList.remove('active', 'prev', 'next');
-                
+
                 if (index === currentIndex) {
                     card.classList.add('active');
                 } else if (index === currentIndex - 1) {
@@ -445,18 +459,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentCounter.textContent = String(currentIndex + 1).padStart(2, '0');
             }
 
-            const cardWidth = cards[0].offsetWidth + 40;
-            const offset = -currentIndex * cardWidth + (carousel.parentElement.offsetWidth - cards[0].offsetWidth) / 2;
+            if (totalCounter) {
+                totalCounter.textContent = String(total).padStart(2, '0');
+            }
+
+            const firstCard = visibleCards[0];
+            const cardWidth = firstCard.offsetWidth + 40;
+            const offset = -currentIndex * cardWidth + (carousel.parentElement.offsetWidth - firstCard.offsetWidth) / 2;
             carousel.style.transform = `translateX(${offset}px)`;
         }
 
         function nextSlide() {
-            currentIndex = (currentIndex + 1) % totalCards;
+            const total = visibleCards.length;
+            if (!total) return;
+            currentIndex = (currentIndex + 1) % total;
             updateCarousel();
         }
 
         function prevSlide() {
-            currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+            const total = visibleCards.length;
+            if (!total) return;
+            currentIndex = (currentIndex - 1 + total) % total;
             updateCarousel();
         }
 
@@ -496,16 +519,37 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (e.key === 'ArrowLeft') prevSlide();
         });
 
-        cards.forEach((card, index) => {
+        allCards.forEach((card) => {
             card.addEventListener('click', () => {
-                if (index !== currentIndex) {
+                const index = visibleCards.indexOf(card);
+                if (index !== -1 && index !== currentIndex) {
                     currentIndex = index;
                     updateCarousel();
                 }
             });
         });
 
-        cards.forEach(card => {
+        // Category filtering
+        filterButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach((b) => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+
+                const filter = btn.dataset.filter;
+
+                allCards.forEach((card) => {
+                    const category = card.dataset.category || '';
+                    const matches = filter === 'all' || category === filter;
+                    card.style.display = matches ? '' : 'none';
+                    if (!matches) card.classList.remove('active', 'prev', 'next');
+                });
+
+                currentIndex = 0;
+                updateCarousel();
+            });
+        });
+
+        allCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;

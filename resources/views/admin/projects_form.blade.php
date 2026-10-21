@@ -36,6 +36,23 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Category</label>
+                    @php
+                        $categoryOptions = ['Website', 'Web Application', 'Mobile Application', 'AI', 'API / Backend', 'E-commerce', 'Design', 'Other'];
+                        $currentCategory = old('category', $project->category);
+                        if ($currentCategory && !in_array($currentCategory, $categoryOptions, true)) {
+                            $categoryOptions[] = $currentCategory;
+                        }
+                    @endphp
+                    <select name="category" class="form-input">
+                        <option value="">— Select a category —</option>
+                        @foreach($categoryOptions as $option)
+                            <option value="{{ $option }}" @selected($currentCategory === $option)>{{ $option }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Slug</label>
                     <input type="text" name="slug" class="form-input" value="{{ old('slug', $project->slug) }}" required>
                 </div>
