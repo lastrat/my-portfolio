@@ -46,11 +46,11 @@
                 <textarea name="description_en" class="form-input" rows="4">{{ old('description_en', $experience->description_en ?? $experience->description) }}</textarea>
             </div>
 
-            <div style="display: flex; gap: 12px;">
+            <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
                     {{ $experience->exists ? 'Update Experience' : 'Create Experience' }}
                 </button>
-                <a href="{{ route('admin.experiences') }}" class="btn" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary);">
+                <a href="{{ route('admin.experiences') }}" class="btn btn-secondary">
                     Cancel
                 </a>
             </div>

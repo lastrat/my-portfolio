@@ -86,11 +86,11 @@
                 <textarea name="description_en" class="form-input" rows="4" required>{{ old('description_en', $project->description_en ?? $project->description) }}</textarea>
             </div>
 
-            <div style="display: flex; gap: 12px;">
+            <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
                     {{ $project->exists ? 'Update Project' : 'Create Project' }}
                 </button>
-                <a href="{{ route('admin.projects') }}" class="btn" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary);">
+                <a href="{{ route('admin.projects') }}" class="btn btn-secondary">
                     Cancel
                 </a>
             </div>

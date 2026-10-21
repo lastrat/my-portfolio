@@ -669,6 +669,42 @@
             box-shadow: 0 10px 30px rgba(2, 194, 2, 0.3);
         }
 
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            color: var(--text-primary);
+            border-color: rgba(2, 194, 2, 0.5);
+            background: rgba(2, 194, 2, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-top: 4px;
+        }
+
         /* Responsive */
         @media (max-width: 968px) {
             .admin-sidebar {

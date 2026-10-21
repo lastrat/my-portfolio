@@ -29,11 +29,11 @@
                 <textarea name="icon" class="form-input" rows="6">{{ old('icon', $tech->icon) }}</textarea>
             </div>
 
-            <div style="display: flex; gap: 12px;">
+            <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
                     {{ $tech->exists ? 'Update Technology' : 'Create Technology' }}
                 </button>
-                <a href="{{ route('admin.tech') }}" class="btn" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary);">
+                <a href="{{ route('admin.tech') }}" class="btn btn-secondary">
                     Cancel
                 </a>
             </div>

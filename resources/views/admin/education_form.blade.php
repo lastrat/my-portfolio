@@ -61,11 +61,11 @@
                 <textarea name="description_en" class="form-input" rows="4">{{ old('description_en', $education->description_en ?? $education->description) }}</textarea>
             </div>
 
-            <div style="display: flex; gap: 12px;">
+            <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
                     {{ $education->exists ? 'Update Education' : 'Create Education' }}
                 </button>
-                <a href="{{ route('admin.education') }}" class="btn" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary);">
+                <a href="{{ route('admin.education') }}" class="btn btn-secondary">
                     Cancel
                 </a>
             </div>
