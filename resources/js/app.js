@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const moreBtn = document.getElementById('showMoreProjects');
         const moreLabel = moreBtn ? moreBtn.querySelector('.projects-more-label') : null;
         const moreCount = moreBtn ? moreBtn.querySelector('.projects-more-count') : null;
-        const limit = moreBtn ? parseInt(moreBtn.dataset.limit, 10) || 6 : 6;
+        const limit = moreBtn ? parseInt(moreBtn.dataset.limit, 10) || 8 : 8;
 
         let activeFilter = 'all';
         let expanded = false;

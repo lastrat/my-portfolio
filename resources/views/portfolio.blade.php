@@ -259,9 +259,9 @@
                 @endforeach
             </div>
 
-            @if(count($projects) > 6)
+            @if(count($projects) > 8)
                 <div class="projects-more">
-                    <button type="button" class="projects-more-btn" id="showMoreProjects" data-limit="6"
+                    <button type="button" class="projects-more-btn" id="showMoreProjects" data-limit="8"
                             data-label-more="{{ $translations['show_more'] ?? 'Show more' }}"
                             data-label-less="{{ $translations['show_less'] ?? 'Show less' }}">
                         <span class="projects-more-label">{{ $translations['show_more'] ?? 'Show more' }}</span>
