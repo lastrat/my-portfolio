@@ -440,10 +440,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function applyVisibility() {
             const matches = matchingCards();
+            // An explicit category filter always shows every project of that category
+            const isFiltered = activeFilter !== 'all';
+            const effectiveLimit = isFiltered ? matches.length : limit;
             let shown = 0;
 
             matches.forEach((card) => {
-                const isVisible = expanded || shown < limit;
+                const isVisible = expanded || shown < effectiveLimit;
                 card.style.display = isVisible ? '' : 'none';
                 if (isVisible) shown++;
             });
@@ -453,7 +456,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (moreBtn) {
-                const hidden = Math.max(matches.length - limit, 0);
+                const hidden = Math.max(matches.length - effectiveLimit, 0);
+
                 if (hidden === 0 && !expanded) {
                     moreBtn.style.display = 'none';
                 } else {
