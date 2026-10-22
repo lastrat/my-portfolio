@@ -9,6 +9,8 @@ Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profile', [AdminController::class, 'profileForm'])->name('profile');
+    Route::put('/profile', [AdminController::class, 'updateProfile'])->name('profile.update');
     Route::get('/projects', [AdminController::class, 'projects'])->name('projects');
     Route::get('/projects/create', [AdminController::class, 'createProject'])->name('projects.create');
     Route::post('/projects', [AdminController::class, 'storeProject'])->name('projects.store');

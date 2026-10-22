@@ -165,6 +165,14 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 16px;
+            padding: 8px;
+            margin-left: -8px;
+            border-radius: 12px;
+            transition: var(--transition-fast);
+        }
+
+        .admin-user-info:hover {
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .admin-avatar {
@@ -770,16 +778,20 @@
                     <span class="admin-nav-badge">{{ $unread }}</span>
                 @endif
             </a>
+            <a href="{{ route('admin.profile') }}" class="admin-nav-item {{ request()->routeIs('admin.profile*') ? 'active' : '' }}">
+                <span class="admin-nav-icon">👤</span>
+                My Account
+            </a>
         </nav>
 
         <div class="admin-user">
-            <div class="admin-user-info">
-                <div class="admin-avatar">GR</div>
+            <a href="{{ route('admin.profile') }}" class="admin-user-info" style="text-decoration: none; color: inherit;">
+                <div class="admin-avatar">{{ strtoupper(collect(explode(' ', Auth::user()->name))->filter()->take(2)->map(fn($p) => mb_substr($p, 0, 1))->implode('')) }}</div>
                 <div class="admin-user-details">
                     <div class="admin-user-name">{{ Auth::user()->name }}</div>
                     <div class="admin-user-email">{{ Auth::user()->email }}</div>
                 </div>
-            </div>
+            </a>
             <form method="POST" action="{{ route('admin.logout') }}">
                 @csrf
                 <button type="submit" class="admin-logout-btn">
