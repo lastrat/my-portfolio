@@ -495,7 +495,15 @@
                         @endforeach
                     </div>
 
-                    <a href="{{ asset('assets/CV.pdf') }}" target="_blank" class="btn btn-primary magnetic" style="margin-top: 32px;">
+                    @php
+                        $isFrench = app()->getLocale() === 'fr';
+                        $cvCandidates = $isFrench
+                            ? ['assets/CV FR.pdf', 'assets/CV.pdf']
+                            : ['assets/CV EN.pdf', 'assets/CV.pdf'];
+                        $cvPath = collect($cvCandidates)->first(fn($path) => file_exists(public_path($path))) ?: $cvCandidates[0];
+                        $cvDownloadName = $isFrench ? 'CV Gildas Rochinel FR.pdf' : 'CV Gildas Rochinel EN.pdf';
+                    @endphp
+                    <a href="{{ asset($cvPath) }}" download="{{ $cvDownloadName }}" target="_blank" rel="noopener" class="btn btn-primary magnetic" style="margin-top: 32px;">
                         {{ $translations['download_cv'] ?? 'Download CV' }} ↓
                     </a>
                 </div>
