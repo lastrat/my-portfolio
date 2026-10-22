@@ -98,20 +98,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== THEME MANAGEMENT =====
     const themeButtons = document.querySelectorAll('[data-theme-btn]');
     const html = document.documentElement;
+    const THEME_KEY = 'portfolio-theme';
+    const LEGACY_THEME_KEY = 'theme';
 
     function getSystemTheme() {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
 
-    function setTheme(theme) {
+    function setTheme(theme, persist = true) {
         if (theme === 'desktop') {
-            const systemTheme = getSystemTheme();
-            html.setAttribute('data-theme', systemTheme);
-            localStorage.setItem('theme', 'desktop');
+            html.setAttribute('data-theme', getSystemTheme());
         } else {
             html.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
         }
+
+        if (persist) {
+            localStorage.setItem(THEME_KEY, theme);
+        }
+
         updateThemeButtons(theme);
     }
 
@@ -127,14 +131,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initialize theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
+    // Initialize theme: dark by default, only an explicit choice is remembered
+    function getInitialTheme() {
+        const stored = localStorage.getItem(THEME_KEY);
+        if (stored) return stored;
+
+        // Keep an explicit choice made before the key change, ignore the
+        // old auto-stored "desktop" value so dark stays the default
+        const legacy = localStorage.getItem(LEGACY_THEME_KEY);
+        if (legacy === 'light' || legacy === 'dark') {
+            localStorage.setItem(THEME_KEY, legacy);
+            return legacy;
+        }
+
+        return 'dark';
+    }
+
+    setTheme(getInitialTheme(), false);
 
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (localStorage.getItem('theme') === 'desktop') {
-            setTheme('desktop');
+        if (localStorage.getItem(THEME_KEY) === 'desktop') {
+            setTheme('desktop', false);
         }
     });
 
