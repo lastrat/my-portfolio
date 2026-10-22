@@ -630,9 +630,9 @@
                 {{ $translations['footer_text'] ?? '© 2026 Gildas Rochinel. All rights reserved.' }}
             </div>
             <div class="footer-social">
-                <a href="#" aria-label="GitHub">GH</a>
-                <a href="#" aria-label="LinkedIn">LI</a>
-                <a href="#" aria-label="Twitter">TW</a>
+                <a href="https://github.com/lastrat" aria-label="GitHub">GH</a>
+                <a href="https://www.linkedin.com/in/gildas-rochinel-simo-simo-911ba3302/" aria-label="LinkedIn">LI</a>
+                <a href="https://x.com/lastrategie01" aria-label="Twitter">TW</a>
                 <a href="#" aria-label="Dribbble">DR</a>
             </div>
         </div>

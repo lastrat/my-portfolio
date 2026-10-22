@@ -39,7 +39,9 @@
                                 'angular', 'svelte', 'nextdotjs', 'nodejs', 'nodedotjs', 'django', 'codeigniter', 'bootstrap',
                                 'tailwindcss', 'jquery', 'mysql', 'postgresql', 'mongodb', 'redis', 'docker', 'kubernetes',
                                 'git', 'github', 'gitlab', 'linux', 'ubuntu', 'wordpress', 'figma', 'notion', 'googleanalytics',
-                                'googlecloud', 'vuedotjs', 'express', 'nginx', 'xml', 'markdown', 'jest', 'vitest'
+                                'googlecloud', 'vuedotjs', 'express', 'nginx', 'xml', 'markdown', 'jest', 'vitest',
+                                'photoshop', 'aftereffects', 'capcut', 'adobe-photoshop', 'adobe-after-effects',
+                                'illustrator', 'premierepro', 'davinciresolve', 'blender', 'canva'
                             ] as $knownSlug)
                                 <option value="{{ $knownSlug }}"></option>
                             @endforeach
@@ -138,21 +140,39 @@
 
                 fetchBtn.textContent = 'Fetching...';
 
-                fetch('https://cdn.simpleicons.org/' + slug)
-                    .then(function (response) {
-                        if (!response.ok) throw new Error('Logo not found for "' + slug + '"');
-                        return response.text();
-                    })
-                    .then(function (svg) {
-                        iconArea.value = svg;
-                        updatePreview();
-                        fetchBtn.textContent = 'Logo fetched';
-                        setTimeout(function () { fetchBtn.textContent = 'Fetch brand logo'; }, 1800);
-                    })
-                    .catch(function (error) {
-                        alert(error.message);
+                // Multiple sources: Simple Icons, Iconify, Devicon
+                var sources = [
+                    'https://cdn.simpleicons.org/' + slug,
+                    'https://api.iconify.design/logos/' + slug + '.svg',
+                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/' + slug + '/' + slug + '-original.svg',
+                    'https://api.iconify.design/thesvg/' + slug + '.svg'
+                ];
+
+                function tryNext(index) {
+                    if (index >= sources.length) {
+                        alert('No logo found for "' + slug + '"');
                         fetchBtn.textContent = 'Fetch brand logo';
-                    });
+                        return;
+                    }
+
+                    fetch(sources[index])
+                        .then(function (response) {
+                            if (!response.ok) throw new Error('not found');
+                            return response.text();
+                        })
+                        .then(function (svg) {
+                            if (svg.indexOf('<svg') === -1) throw new Error('not an svg');
+                            iconArea.value = svg;
+                            updatePreview();
+                            fetchBtn.textContent = 'Logo fetched';
+                            setTimeout(function () { fetchBtn.textContent = 'Fetch brand logo'; }, 1800);
+                        })
+                        .catch(function () {
+                            tryNext(index + 1);
+                        });
+                }
+
+                tryNext(0);
             });
 
             updatePreview();
